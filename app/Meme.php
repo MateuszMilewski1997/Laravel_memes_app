@@ -8,7 +8,7 @@ class Meme extends Model
 {
     protected $primaryKey = 'id';
 
-    public function memes()
+    public function meme()
     {
         return $this->hasMany('App\Comment');
     }

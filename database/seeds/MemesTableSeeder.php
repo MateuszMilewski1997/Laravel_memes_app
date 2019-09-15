@@ -15,6 +15,8 @@ class MemesTableSeeder extends Seeder
         {
             $randomLike = rand(0,1000);
             $randomDislike = rand(0,1000);
+            $int= rand(1262055681,1262055681);
+            $date = date("Y-m-d H:i:s",$int);
 
             DB::table('memes')->insert([
                 'title' => Str::random(30),
@@ -22,6 +24,7 @@ class MemesTableSeeder extends Seeder
                 'likes' => $randomLike,
                 'dislikes' => $randomDislike,
                 'author' => 1,
+                'created_at'=> $date,
             ]);
         }
     }

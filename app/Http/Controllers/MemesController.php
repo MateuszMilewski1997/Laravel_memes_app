@@ -11,7 +11,7 @@ class MemesController extends Controller
 {
     public function memes()
     {
-        $memes = Meme::Paginate(15);;
+        $memes = Meme::Paginate(15);
         return view('memes/all_memes',['memes'=>$memes]);
     }
 }
