@@ -13,6 +13,8 @@ class CreateMemesTable extends Migration
      */
     public function up()
     {
+       
+        
         Schema::create('memes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
@@ -20,8 +22,10 @@ class CreateMemesTable extends Migration
             $table->string('photoPath',100);
             $table->bigInteger('likes');
             $table->bigInteger('dislikes');
-            $table->bigInteger('author');
+            $table->integer('user_id');
         });
+
+       
     }
 
     /**

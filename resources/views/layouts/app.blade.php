@@ -57,6 +57,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('my_memes')}}">My memes</a>
+                                    <a class="dropdown-item" href="#">Waiting room</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -67,7 +69,7 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li>
+                            </li> 
                         @endguest
                     </ul>
                 </div>

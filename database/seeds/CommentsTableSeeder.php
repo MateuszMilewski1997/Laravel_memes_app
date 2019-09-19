@@ -18,7 +18,7 @@ class CommentsTableSeeder extends Seeder
 
             DB::table('comments')->insert([
                 'content' => Str::random($length),
-                'mem' => $mem,
+                'meme_id' => $mem,
                 'author' => 1,
             ]);
         }
