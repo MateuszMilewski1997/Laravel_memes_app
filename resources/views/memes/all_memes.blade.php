@@ -35,7 +35,7 @@
                 </li>
                 @if(isset($auth))
                 <li class="list-group-item">
-                <button onclick="getNumber(this.id)" id="{{ $meme->id }}" type="button" class="btn btn-danger w-100" data-toggle="modal"
+                <button onclick="getNumber(this.id)" id="{{ $meme->id }}" type="button" class="btn btn-lg btn-danger w-100" data-toggle="modal"
                         data-target="#exampleModal">Delete</button>
                 </li>
                 @endif

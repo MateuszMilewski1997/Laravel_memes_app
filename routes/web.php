@@ -19,6 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'MemesController@memes')->name('all_memes');
-Route::get('/add', 'MemesController@create')->name('create');
+Route::get('/meme/add/form', 'MemesController@create_form')->name('create_meme_form');
+Route::get('/meme/add/new', 'MemesController@create')->name('create_meme');
 Route::get('/memes/my', 'MemesController@my_memes')->name('my_memes');
 Route::get('/meme/delete/{id}', 'MemesController@delete_meme')->name('delete_meme');
+Route::get('/meme/like/{id}', 'MemesController@like')->name('like_meme');
+Route::get('/meme/dislike/{id}', 'MemesController@dislike')->name('dislike_meme');

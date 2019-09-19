@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
 //use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 Use App\Meme;
 use DB;
 Use App\Comment;
@@ -34,6 +36,10 @@ class MemesController extends Controller
 
         return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
     }
+    public function create_form()
+    {
+        return view('memes/add_meme');
+    }
     public function create()
     {
         $post = new Meme;
@@ -44,6 +50,26 @@ class MemesController extends Controller
         $post->dislikes = 0;
         
         $post->save();
+        return ("ok");
+    }
+    public function like($meme)
+    {        
+        $meme = Meme::find($meme);
+        $count = $meme->likes;
+        $count++;
+        $meme->likes = $count;
+        $meme->save();
+
+        return ("ok");
+    }
+    public function dislike($meme)
+    {
+        $meme = Meme::find($meme);
+        $count = $meme->dislikes;
+        $count++;
+        $meme->dislikes = $count;
+        $meme->save();
+
         return ("ok");
     }
 }
