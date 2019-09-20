@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="container">
     <div class="row">
         @foreach ($memes as $meme)
@@ -9,7 +10,7 @@
             <div class="card-body">
                 <h1 class="card-title">Title</h1>
                 <p class="card-text">
-                <h3>{{ $meme->title }} id{{$meme->id}}</h3>
+                    <h3>{{ $meme->title }} id{{$meme->id}}</h3>
                 </p>
             </div>
             <ul class="list-group list-group-flush">
@@ -22,20 +23,25 @@
                 </li>
                 @endif
                 <li class="list-group-item">
-                    <h3> <i style="color:green;" class="far fa-thumbs-up"></i> {{ $meme->likes }}</h3>
+                    <h3> <i style="color:green;" class="far fa-thumbs-up"></i><span
+                            class="meme{{ $meme->id }}">{{ $meme->likes }}</span></h3>
                     @if(!isset($auth))
-                    <button type="button" class="btn btn-outline-success w-100">Like</button>
+                    <button onclick="like(this.id)" id="{{ $meme->id }}" type="button"
+                        class="btn btn-outline-success w-100">Like</button>
                     @endif
                 </li>
                 <li class="list-group-item">
-                    <h3> <i style="color:red;" class="far fa-thumbs-down"></i> {{ $meme->dislikes }}</h3>
+                    <h3> <i style="color:red;" class="far fa-thumbs-down"></i> <span
+                            class="dislike{{ $meme->id }}">{{ $meme->dislikes }}</span></h3>
                     @if(!isset($auth))
-                    <button type="button" class="btn btn-outline-danger w-100">Dislike</button>
+                    <button onclick="dislike(id)" id="{{ $meme->id }}" type="button"
+                        class="btn btn-outline-danger w-100">Dislike</button>
                     @endif
                 </li>
                 @if(isset($auth))
                 <li class="list-group-item">
-                <button onclick="getNumber(this.id)" id="{{ $meme->id }}" type="button" class="btn btn-lg btn-danger w-100" data-toggle="modal"
+                    <button onclick="getNumber(this.id)" id="{{ $meme->id }}" type="button"
+                        class="btn btn-lg btn-danger w-100" data-toggle="modal"
                         data-target="#exampleModal">Delete</button>
                 </li>
                 @endif
@@ -74,8 +80,7 @@
 </div>
 
 <script>
-
-let number;
+    let number;
 
 function getNumber(id)
 {
@@ -85,6 +90,40 @@ function getNumber(id)
 function deleteMem()
 {
     window.location.href = '/meme/delete/'.concat(number);
+}
+
+function like(meme_id)
+{
+    
+    let number_like = meme_id.toString();
+    let class_like = "meme".concat(number_like);
+    let content = document.querySelector(".".concat(class_like)).innerHTML;
+    let insert = parseInt(content, 10);
+    insert = insert + 1;
+    let text = insert.toString();
+    document.querySelector(".".concat(class_like)).innerHTML = text;
+
+    $.ajax({
+        url: "/meme/like/".concat(number_like),
+        type: "GET",
+    });
+   
+}
+
+function dislike(meme_id)
+{
+    let number_like = meme_id.toString();
+    let class_like = "dislike".concat(number_like);
+    let content = document.querySelector(".".concat(class_like)).innerHTML;
+    let insert = parseInt(content, 10);
+    insert = insert + 1;
+    let text = insert.toString();
+    document.querySelector(".".concat(class_like)).innerHTML = text;
+
+    $.ajax({
+        url: "/meme/dislike/".concat(number_like),
+        type: "GET",
+    });
 }
 
 </script>
