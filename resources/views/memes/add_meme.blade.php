@@ -6,7 +6,7 @@
     <div style="background-color:#fff; border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
         <h3>Create Post</h3>
     </div>
-    {!! Form::open(['action' => 'MemesController@create', 'method' => 'GET', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::open(['action' => 'MemesController@create', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
     <div class="form-group mt-5">
         <h4>{{Form::label('title', 'Title')}}</h4>
         {{Form::text('title', '', ['class' => 'form-control', 'placeholder' => 'Title'])}}
@@ -21,5 +21,15 @@
         {{Form::submit('Submit', ['class'=>'btn btn-secondary'])}}
     </div>
     {!! Form::close() !!}
+
 </div>
+{{--<form action="/meme/add/new" enctype="multipart/form-data" method="POST">
+    <p>
+        <label for="photo">
+            <input type="file" name="photo" id="photo">
+        </label>
+    </p>
+    <button>Upload</button>
+    {{ csrf_field() }}
+</form>--}}
 @endsection

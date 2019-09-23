@@ -8,7 +8,7 @@ Use App\Comment;
 Use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Collection;
+use Validator,Redirect,Response,File;
 use App\Http\Controllers\Controller;
 
 class MemesController extends Controller
@@ -22,7 +22,7 @@ class MemesController extends Controller
     public function my_memes()
     {
         $user_id = auth()->user()->id;
-        $my_memes = Meme::where('user_id', 1)->paginate(10);
+        $my_memes = Meme::where('user_id', $user_id)->paginate(10);
         $auth = "auth";
 
         return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
@@ -41,19 +41,10 @@ class MemesController extends Controller
     }
     public function create(Request $request)
     {
-        $post = new Meme;
-        $post->title = $request->title;
-        $post->photoPath = $request->cover_image;
-        $post->user_id = auth()->user()->id;
-        $post->likes = 0;
-        $post->dislikes = 0;  
-        $post->save();
+      
+        $path = $request->file('cover_image')->store('photos');
 
-        $user_id = auth()->user()->id;
-        $my_memes = Meme::where('user_id', 1)->paginate(10);
-        $auth = "auth";
-
-        return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
+        dd($path);
     }
     public function like($meme)
     {        
