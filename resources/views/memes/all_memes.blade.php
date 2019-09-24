@@ -6,7 +6,7 @@
         @foreach ($memes as $meme)
 
         <div class="card w-100 mt-5" style="width: 18rem;">
-            <img src="{{ asset('photos/photo.jpg') }}" class="card-img-top" alt="...">
+            <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h1 class="card-title">Title</h1>
                 <p class="card-text">

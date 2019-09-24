@@ -30,7 +30,8 @@ class MemesController extends Controller
     public function delete_meme($id)
     {
         $meme = Meme::where('id', $id)->delete();
-        $my_memes = Meme::where('user_id', 1)->paginate(10);
+        $user_id = auth()->user()->id;
+        $my_memes = Meme::where('user_id', $user_id)->paginate(10);
         $auth = "auth";
 
         return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
@@ -41,10 +42,26 @@ class MemesController extends Controller
     }
     public function create(Request $request)
     {
-      
-        $path = $request->file('cover_image')->store('photos');
+        //$path = $request->file('cover_image')->store('photos');
+        $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $request->file('cover_image')->getClientOriginalExtension();
+        $fileNameToStore= $filename.'_'.time().'.'.$extension;
+        $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
 
-        dd($path);
+        $post = new Meme;
+        $post->title = $request->title;
+        $post->photoPath = $fileNameToStore;
+        $post->user_id = auth()->user()->id;
+        $post->likes = 0;
+        $post->dislikes = 0;  
+        $post->save();
+
+        $user_id = auth()->user()->id;
+        $my_memes = Meme::where('user_id', $user_id)->paginate(10);
+        $auth = "auth";
+
+        return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
     }
     public function like($meme)
     {        
