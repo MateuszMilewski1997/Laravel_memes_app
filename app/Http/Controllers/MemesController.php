@@ -15,7 +15,13 @@ class MemesController extends Controller
 {
     public function memes()
     {
-        $memes = Meme::orderBy('created_at','desc')->paginate(10);
+        $memes = Meme::where('waiting_room', 0)->orderBy('created_at','desc')->paginate(10);
+        
+        return view('memes/all_memes',['memes'=>$memes]);
+    }
+    public function waiting_room()
+    {
+        $memes = Meme::where('waiting_room', 1)->orderBy('created_at','desc')->paginate(10);
         
         return view('memes/all_memes',['memes'=>$memes]);
     }
@@ -42,7 +48,7 @@ class MemesController extends Controller
     }
     public function create(Request $request)
     {
-        //$path = $request->file('cover_image')->store('photos');
+        //$path = $request->file('cover_image')->store('photos'); php artisan storage:link
         $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
         $extension = $request->file('cover_image')->getClientOriginalExtension();
@@ -54,7 +60,8 @@ class MemesController extends Controller
         $post->photoPath = $fileNameToStore;
         $post->user_id = auth()->user()->id;
         $post->likes = 0;
-        $post->dislikes = 0;  
+        $post->dislikes = 0;
+        $post->waiting_room = 0;  
         $post->save();
 
         $user_id = auth()->user()->id;
