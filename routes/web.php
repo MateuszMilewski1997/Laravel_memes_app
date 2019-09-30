@@ -26,3 +26,4 @@ Route::get('/memes/my', 'MemesController@my_memes')->name('my_memes');
 Route::get('/meme/delete/{id}', 'MemesController@delete_meme')->name('delete_meme');
 Route::get('/meme/like/{id}', 'MemesController@like')->name('like_meme');
 Route::get('/meme/dislike/{id}', 'MemesController@dislike')->name('dislike_meme');
+Route::get('/sendemail/send', 'SendEmailController@send');
