@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->bigInteger('mem_id')->unsigned();
             $table->string('content',200);
 
-            $table->foreign('mem_id')->references('id')->on('memes');
+            $table->foreign('mem_id')->references('id')->on('memes')->onDelete('cascade');
         });
     }
 

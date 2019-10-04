@@ -11,15 +11,14 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i <= 10000; $i++)
+        for($i = 0; $i <= 40; $i++)
         {
-            $mem = rand(1,400);
-            $length = rand(1,200);
+            $mem = rand(1,2);
+            $length = rand(1,100);
 
             DB::table('comments')->insert([
                 'content' => Str::random($length),
-                'meme_id' => $mem,
-                'author' => 1,
+                'mem_id' => $mem,
             ]);
         }
     }

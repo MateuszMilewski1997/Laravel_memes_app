@@ -47,10 +47,10 @@
                 @endif
             </ul>
             <div class="card-body">
-                <button class="btn btn-lg btn-secondary w-100">Show comments</button>
+                <a href="/meme/comments/{{ $meme->id }}"><button class="btn btn-lg btn-secondary w-100">Show comments</button></a>
             </div>
         </div>
-
+        
         @endforeach
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

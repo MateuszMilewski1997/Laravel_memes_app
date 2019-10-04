@@ -25,7 +25,7 @@ class CreateMemesTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->boolean('waiting_room');
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
        
