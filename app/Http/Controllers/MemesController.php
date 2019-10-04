@@ -6,6 +6,7 @@ use DB;
 Use App\Meme;
 Use App\Comment;
 Use App\User;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Validator,Redirect,Response,File;
@@ -36,6 +37,8 @@ class MemesController extends Controller
     public function delete_meme($id)
     {
         $meme = Meme::where('id', $id)->delete();
+        //$name = Meme::select('photoPath')->where('id', $id)->get();
+        //File::delete('public/cover_images/'.$name);
         $user_id = auth()->user()->id;
         $my_memes = Meme::where('user_id', $user_id)->paginate(10);
         $auth = "auth";
@@ -61,7 +64,7 @@ class MemesController extends Controller
         $post->user_id = auth()->user()->id;
         $post->likes = 0;
         $post->dislikes = 0;
-        $post->waiting_room = 0;  
+        $post->waiting_room = 1;  
         $post->save();
 
         $user_id = auth()->user()->id;
@@ -89,5 +92,14 @@ class MemesController extends Controller
         $meme->save();
 
         return ("ok");
+    }
+    public function del_waiting_room($meme)
+    {
+        $meme = Meme::find($meme);
+        $meme->waiting_room = 0;
+        $meme->save();
+        $memes = Meme::where('waiting_room', 1)->orderBy('created_at','desc')->paginate(10);
+        
+        return view('memes/all_memes',['memes'=>$memes]);
     }
 }
