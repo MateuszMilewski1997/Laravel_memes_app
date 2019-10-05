@@ -14,6 +14,8 @@ class CommentsController extends Controller
     {
         $meme = Meme::where('id', $id)->get();
         $comments = Comment::where('mem_id', $id)->orderBy('created_at','desc')->paginate(10);
+        $count = $comments->count();
+        if($count == 0)  return view('comments/comments',['memes' => $meme, 'comments' => $comments, 'message' => "Add first comment!"]);
 
         return view('comments/comments',['memes' => $meme, 'comments' => $comments]);
     }

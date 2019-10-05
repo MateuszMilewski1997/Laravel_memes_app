@@ -26,6 +26,9 @@
                 </li>
                 <li class="list-group-item">
                     <h2>Comments:</h2>
+                    @if(isset($message))
+                        <h3 class="mt-3">{{ $message }}</h3>
+                    @endif
                     @foreach($comments as $comment)
                     <ol>
                         <div class="w-100 mb-2 mt-3"
