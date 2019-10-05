@@ -12,7 +12,7 @@
                 <p class="card-text">
                     <h3>{{ $meme->title }} id{{$meme->id}}</h3>
                 </p>
-                @if($meme->waiting_room == 1 && Auth::user()->role == "user")
+                @if($meme->waiting_room == 1 && Auth::user()->role == "admin")
                     <a href="/meme/del/waiting/{{$meme->id}}"><button class="btn btn-warning">Change status</button></a>
                 @endif
             </div>

@@ -39,11 +39,7 @@ class MemesController extends Controller
         $meme = Meme::where('id', $id)->delete();
         //$name = Meme::select('photoPath')->where('id', $id)->get();
         //File::delete('public/cover_images/'.$name);
-        $user_id = auth()->user()->id;
-        $my_memes = Meme::where('user_id', $user_id)->paginate(10);
-        $auth = "auth";
-
-        return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
+        return $this->my_memes();
     }
     public function create_form()
     {
@@ -67,11 +63,7 @@ class MemesController extends Controller
         $post->waiting_room = 1;  
         $post->save();
 
-        $user_id = auth()->user()->id;
-        $my_memes = Meme::where('user_id', $user_id)->paginate(10);
-        $auth = "auth";
-
-        return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
+        return $this->my_memes();
     }
     public function like($meme)
     {        
@@ -98,8 +90,23 @@ class MemesController extends Controller
         $meme = Meme::find($meme);
         $meme->waiting_room = 0;
         $meme->save();
-        $memes = Meme::where('waiting_room', 1)->orderBy('created_at','desc')->paginate(10);
         
-        return view('memes/all_memes',['memes'=>$memes]);
+        return $this->memes();
+    }
+    public function delete_file()
+    {
+        //Storage::delete('app/public/cover_images/porsche_1570195027.jpg');
+        //Storage::disk('s3')->delete('$path' . 'app/public/cover_images/porsche_1570195027.jpg');
+        //Storage::delete('app/public/porsche_1570195027.jpg');
+        File::delete('porsche_1570192936.jpg');
+
+        //Storage::disk('public')->delete('porsche_1570192936.jpg');
+        dd("");
+        //if(\File::exists(public_path('storage/cover_images/porsche_1570195027.jpg '))){
+        //  dd("git");
+        //}
+        //else{
+        //dd("dhwjsk");
+        //}
     }
 }

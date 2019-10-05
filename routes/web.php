@@ -27,6 +27,7 @@ Route::get('/meme/delete/{id}', 'MemesController@delete_meme')->name('delete_mem
 Route::get('/meme/like/{id}', 'MemesController@like')->name('like_meme');
 Route::get('/meme/dislike/{id}', 'MemesController@dislike')->name('dislike_meme');
 Route::get('/meme/del/waiting/{id}', 'MemesController@del_waiting_room')->name('del_waiting');
+Route::get('/meme/del/photo', 'MemesController@delete_file')->name('del_file');
 
 Route::get('/meme/comments/{id}', 'CommentsController@all_comments')->name('all_comments');
 Route::post('/meme/comment/add/{id}', 'CommentsController@add_comment')->name('add_comment');
