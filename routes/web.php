@@ -29,5 +29,6 @@ Route::get('/meme/dislike/{id}', 'MemesController@dislike')->name('dislike_meme'
 Route::get('/meme/del/waiting/{id}', 'MemesController@del_waiting_room')->name('del_waiting');
 
 Route::get('/meme/comments/{id}', 'CommentsController@all_comments')->name('all_comments');
+Route::post('/meme/comment/add/{id}', 'CommentsController@add_comment')->name('add_comment');
 
 Route::get('/sendemail/send', 'SendEmailController@send');

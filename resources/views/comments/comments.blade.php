@@ -18,27 +18,29 @@
                     <h3> <i class="far fa-clock"></i> : {{ $meme->created_at }}</h3>
                 </li>
                 <li class="list-group-item">
-                    <h2>Write comment:</h2>
-                    <label for="exampleFormControlTextarea1">Comment:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    <button type="button" class="btn btn-lg btn-primary w-100 mt-4 mb-3">Add comment!</button>
-                </li>    
+                <form action="/meme/comment/add/{{ $meme->id }}" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <button  class='btn btn-lg btn-primary w-100 mt-4 mb-3' type="submit">Add comment</button>
+                    </form>
+                </li>
                 <li class="list-group-item">
                     <h2>Comments:</h2>
                     @foreach($comments as $comment)
-                        <ol>
-                            <div class="w-100 mb-2 mt-3" style="background-color: #f8fafc; padding: 15px; border-radius: 5px; border: 1px solid lightgray">
-                                <h4 class="mt-3">{{$comment->content}}</h4>
-                                <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}12:12:2019</h5>
-                                @if(Auth::check() && Auth::user()->role == "admin")    
-                                    <button type="button" class="btn btn-sm btn-danger">Delete comment</button>
-                                @endif
-                            </div>
-                        </ol>
+                    <ol>
+                        <div class="w-100 mb-2 mt-3"
+                            style="background-color: #f8fafc; padding: 15px; border-radius: 5px; border: 1px solid lightgray">
+                            <h4 class="mt-3">{{$comment->content}}</h4>
+                            <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}</h5>
+                            @if(Auth::check() && Auth::user()->role == "admin")
+                            <button type="button" class="btn btn-sm btn-danger">Delete comment</button>
+                            @endif
+                        </div>
+                    </ol>
                     @endforeach
                     <div class="mt-4">
                         {{ $comments->links() }}
-                    </div>    
+                    </div>
                 </li>
             </ul>
         </div>

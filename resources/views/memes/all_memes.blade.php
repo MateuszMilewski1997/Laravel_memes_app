@@ -12,6 +12,9 @@
                 <p class="card-text">
                     <h3>{{ $meme->title }} id{{$meme->id}}</h3>
                 </p>
+                @if($meme->waiting_room == 1 && Auth::user()->role == "user")
+                    <a href="/meme/del/waiting/{{$meme->id}}"><button class="btn btn-warning">Change status</button></a>
+                @endif
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
@@ -47,10 +50,11 @@
                 @endif
             </ul>
             <div class="card-body">
-                <a href="/meme/comments/{{ $meme->id }}"><button class="btn btn-lg btn-secondary w-100">Show comments</button></a>
+                <a href="/meme/comments/{{ $meme->id }}"><button class="btn btn-lg btn-secondary w-100">Show
+                        comments</button></a>
             </div>
         </div>
-        
+
         @endforeach
 
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

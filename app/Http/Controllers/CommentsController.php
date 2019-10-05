@@ -13,7 +13,19 @@ class CommentsController extends Controller
     public function all_comments($id)
     {
         $meme = Meme::where('id', $id)->get();
-        $comments = Comment::where('mem_id', $id)->paginate(10);
+        $comments = Comment::where('mem_id', $id)->orderBy('created_at','desc')->paginate(10);
+
+        return view('comments/comments',['memes' => $meme, 'comments' => $comments]);
+    }
+    public function add_comment($id, Request $request)
+    {
+        $comment = new Comment;
+        $comment->mem_id = $id; 
+        $comment->content = $request->content;
+        $comment->save();
+
+        $meme = Meme::where('id', $id)->get();
+        $comments = Comment::where('mem_id', $id)->orderBy('created_at','desc')->paginate(10);
 
         return view('comments/comments',['memes' => $meme, 'comments' => $comments]);
     }
