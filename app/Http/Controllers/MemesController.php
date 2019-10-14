@@ -36,7 +36,10 @@ class MemesController extends Controller
     }
     public function delete_meme($id)
     {
+        $photo = Meme::select('photoPath')->where('id', $id)->get();
         $meme = Meme::where('id', $id)->delete();
+        
+        $this->delete_file($photo);
         //$name = Meme::select('photoPath')->where('id', $id)->get();
         //File::delete('public/cover_images/'.$name);
         return $this->my_memes();
@@ -60,7 +63,7 @@ class MemesController extends Controller
         $post->user_id = auth()->user()->id;
         $post->likes = 0;
         $post->dislikes = 0;
-        $post->waiting_room = 1;  
+        $post->waiting_room = 0;  
         $post->save();
 
         return $this->my_memes();
@@ -93,20 +96,10 @@ class MemesController extends Controller
         
         return $this->memes();
     }
-    public function delete_file()
+    public function delete_file($photo)
     {
-        //Storage::delete('app/public/cover_images/porsche_1570195027.jpg');
-        //Storage::disk('s3')->delete('$path' . 'app/public/cover_images/porsche_1570195027.jpg');
-        //Storage::delete('app/public/porsche_1570195027.jpg');
-        File::delete('porsche_1570192936.jpg');
+        $path = "storage/cover_images/".$photo[0]->photoPath;
+        File::delete($path);
 
-        //Storage::disk('public')->delete('porsche_1570192936.jpg');
-        dd("");
-        //if(\File::exists(public_path('storage/cover_images/porsche_1570195027.jpg '))){
-        //  dd("git");
-        //}
-        //else{
-        //dd("dhwjsk");
-        //}
     }
 }
