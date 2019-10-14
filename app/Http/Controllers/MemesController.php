@@ -38,10 +38,8 @@ class MemesController extends Controller
     {
         $photo = Meme::select('photoPath')->where('id', $id)->get();
         $meme = Meme::where('id', $id)->delete();
-        
         $this->delete_file($photo);
-        //$name = Meme::select('photoPath')->where('id', $id)->get();
-        //File::delete('public/cover_images/'.$name);
+
         return $this->my_memes();
     }
     public function create_form()
@@ -54,7 +52,8 @@ class MemesController extends Controller
         $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
         $extension = $request->file('cover_image')->getClientOriginalExtension();
-        $fileNameToStore= $filename.'_'.time().'.'.$extension;
+        $fileNameToStore= date('Y-m-d')."/".$filename.'_'.time().'.'.$extension;
+        Storage::makeDirectory("public/cover_images/".date('Y-m-d'));
         $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
 
         $post = new Meme;
