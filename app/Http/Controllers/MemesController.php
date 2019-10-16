@@ -62,7 +62,7 @@ class MemesController extends Controller
         $post->user_id = auth()->user()->id;
         $post->likes = 0;
         $post->dislikes = 0;
-        $post->waiting_room = 0;  
+        $post->waiting_room = 1;  
         $post->save();
 
         return $this->my_memes();
