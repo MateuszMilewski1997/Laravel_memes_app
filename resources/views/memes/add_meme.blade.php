@@ -16,8 +16,18 @@
             <h4>{{Form::label('cover_image', 'Chose photo to upload')}}</h4>
         </div>
         <div>{{Form::file('cover_image', ['class'=>'btn btn-secondary', 'onchange'=>'readURL(this)'])}}</div>
-        <img style="display: none; width: 150px; height: auto; margin-top: 30px; border-radius: 3px; border: 1px solid gray;" id="blah" src="#" alt="your image" />
+        <img style="display: none; width: 150px; height: auto; margin-top: 30px; border-radius: 3px; border: 1px solid"
+            id="blah" src="#" alt="your image" />
     </div>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <div class="mt-5">
         {{Form::submit('Submit', ['class'=>'btn btn-secondary'])}}
     </div>

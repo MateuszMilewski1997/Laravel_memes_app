@@ -48,6 +48,11 @@ class MemesController extends Controller
     }
     public function create(Request $request)
     {
+        $request->validate([
+            'title' => 'required|max:50',
+            'cover_image' => 'required',
+        ]);
+        
         //$path = $request->file('cover_image')->store('photos'); php artisan storage:link
         $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
         $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
