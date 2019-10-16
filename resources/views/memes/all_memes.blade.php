@@ -85,7 +85,9 @@
             </div>
         </div>
     </div>
-    <div class="mt-5 d-flex justify-content-center"></div>
+    <div class="mt-5 d-flex justify-content-center">
+            {{ $memes->links() }}
+    </div>
 </div>
 
 <script>

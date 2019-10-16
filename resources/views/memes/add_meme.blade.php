@@ -15,21 +15,27 @@
         <div>
             <h4>{{Form::label('cover_image', 'Chose photo to upload')}}</h4>
         </div>
-        <div>{{Form::file('cover_image', ['class'=>'btn btn-secondary'])}}</div>
+        <div>{{Form::file('cover_image', ['class'=>'btn btn-secondary', 'onchange'=>'readURL(this)'])}}</div>
+        <img style="display: none; width: 150px; height: auto; margin-top: 30px; border-radius: 3px; border: 1px solid gray;" id="blah" src="#" alt="your image" />
     </div>
     <div class="mt-5">
         {{Form::submit('Submit', ['class'=>'btn btn-secondary'])}}
     </div>
     {!! Form::close() !!}
-
 </div>
-{{--<form action="/meme/add/new" enctype="multipart/form-data" method="POST">
-    <p>
-        <label for="photo">
-            <input type="file" name="photo" id="photo">
-        </label>
-    </p>
-    <button>Upload</button>
-    {{ csrf_field() }}
-</form>--}}
 @endsection
+
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').css("display","block");
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
