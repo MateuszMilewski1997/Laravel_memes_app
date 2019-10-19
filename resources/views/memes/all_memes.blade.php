@@ -18,7 +18,8 @@
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     @if($meme->waiting_room == 1 && Auth::user()->role == "admin")
-                    <a href="/meme/del/waiting/{{$meme->id}}"><button class="btn btn-warning w-100">Change status</button></a>
+                    {{--<a href="/meme/del/waiting/{{$meme->id}}"><button class="btn btn-warning w-100">Change status</button></a>--}}
+                    <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-warning w-100" data-toggle="modal" data-target="#exampleModalLong">Change status</button>
                     @endif
                 </div>
                 <ul class="list-group list-group-flush">
@@ -90,12 +91,39 @@
     </div>
 </div>
 
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Change status</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align:center;">
+            <h2><i class="far fa-question-circle"></i></h2>
+            <h3>Are you sure?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" onclick="changeStatus()" class="btn btn-success">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>
-    let number;
+
+let number;
 
 function getNumber(id)
 {
     number = id;
+}
+
+function changeStatus()
+{
+    window.location.href = '/meme/del/waiting/'.concat(number);
 }
 
 function deleteMem()

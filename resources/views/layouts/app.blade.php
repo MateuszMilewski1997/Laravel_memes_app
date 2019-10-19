@@ -45,6 +45,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <a href="{{route('waiting_room')}}" class="btn btn-primary mr-5" href="#">Waiting room</a>
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -63,8 +64,9 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{route('my_memes')}}">My memes</a>
-                            <a href="{{route('create_meme_form')}}" class="dropdown-item">Add new mem</a>
-                                <a href="{{route('waiting_room')}}" class="dropdown-item" href="#">Waiting room</a>
+                                <a href="{{route('create_meme_form')}}" class="dropdown-item">Add new mem</a>
+                                <a href="{{route('waiting_room')}}" class="dropdown-item" href="#">My account</a>
+                                <a href="{{route('waiting_room')}}" class="dropdown-item" href="#">Admin panel</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}

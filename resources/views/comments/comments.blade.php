@@ -17,14 +17,14 @@
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <h3> <i class="far fa-clock"></i> : {{ $meme->created_at }}</h3>
+                        <h4> <i class="far fa-clock"></i> : {{ $meme->created_at }}</h4>
                     </li>
                     <li class="list-group-item">
                         <form action="/meme/comment/add/{{ $meme->id }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <textarea name="content" class="form-control" id="exampleFormControlTextarea1"
                                 rows="3"></textarea>
-                            <button class='btn btn-lg btn-primary w-100 mt-4 mb-3' type="submit">Add comment</button>
+                            <button class='btn btn-primary w-100 mt-4 mb-3' type="submit">Add comment</button>
                         </form>
                     </li>
                     <li class="list-group-item">
@@ -36,7 +36,7 @@
                         <ol>
                             <div class="w-100 mb-2 mt-3"
                                 style="background-color: #f8fafc; padding: 15px; border-radius: 5px; border: 1px solid lightgray">
-                                <h4 class="mt-3">{{$comment->content}}</h4>
+                                <h5 class="mt-3">{{$comment->content}}</h5>
                                 <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}</h5>
                                 @if(Auth::check() && Auth::user()->role == "admin")
                                 <button type="button" class="btn btn-sm btn-danger w-100">Delete comment</button>
