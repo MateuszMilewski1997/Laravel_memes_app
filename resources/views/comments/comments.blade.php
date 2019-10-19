@@ -11,7 +11,7 @@
                                 <h4>{{ $meme->title }}</h4>
                             </div>
                             <div class="col-5" style="padding-top: 5px;">
-                                    <h4> <i class="far fa-user"></i> : {{$meme->user->name}}</h4>
+                                    <h5> <i class="far fa-user"></i> : {{$meme->user->name}}</h5>
                             </div>
                         </div>    
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
@@ -23,7 +23,7 @@
                         <form action="/meme/comment/add/{{ $meme->id }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <textarea name="content" class="form-control" id="exampleFormControlTextarea1"
-                                rows="3"></textarea>
+                                rows="3" minlength="10" maxlength="200" required></textarea>
                             <button class='btn btn-primary w-100 mt-4 mb-3' type="submit">Add comment</button>
                         </form>
                     </li>
@@ -36,6 +36,8 @@
                         <ol>
                             <div class="w-100 mb-2 mt-3"
                                 style="background-color: #f8fafc; padding: 15px; border-radius: 5px; border: 1px solid lightgray">
+                                <h4><i class="far fa-user-circle"></i><span style="font-size: 17px;"> {{$comment->user->name}}</span></h4>
+                                <hr style="width: 100%; color: black; height: 1px; background-color:gray;" />
                                 <h5 class="mt-3">{{$comment->content}}</h5>
                                 <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}</h5>
                                 @if(Auth::check() && Auth::user()->role == "admin")

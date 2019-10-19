@@ -12,7 +12,7 @@
                         <h4>{{ $meme->title }}</h4>
                     </div>
                     <div class="col-5" style="padding-top: 5px;">
-                            <h4> <i class="far fa-user"></i> : {{$meme->user->name}}</h4>
+                            <h5> <i class="far fa-user"></i> : {{$meme->user->name}}</h5>
                     </div>
                 </div>    
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">

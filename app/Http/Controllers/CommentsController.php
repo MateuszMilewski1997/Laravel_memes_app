@@ -21,8 +21,13 @@ class CommentsController extends Controller
     }
     public function add_comment($id, Request $request)
     {
+        $request->validate([
+            'content' => 'required|max:200',
+        ]);
+        
         $comment = new Comment;
-        $comment->mem_id = $id; 
+        $comment->mem_id = $id;
+        $comment->user_id = auth()->user()->id; 
         $comment->content = $request->content;
         $comment->save();
 
