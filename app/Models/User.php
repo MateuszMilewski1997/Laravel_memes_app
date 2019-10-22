@@ -39,6 +39,6 @@ class User extends Authenticatable
 
     public function memes()
     {
-        return $this->hasMany('App\Meme');
+        return $this->hasMany('App\Models\Meme');
     }
 }

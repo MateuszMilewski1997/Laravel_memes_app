@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use DB;
-Use App\Meme;
-Use App\Comment;
-Use App\User;
+Use App\Models\Meme;
+Use App\Models\Comment;
+Use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;

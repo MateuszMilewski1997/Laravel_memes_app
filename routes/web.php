@@ -30,6 +30,7 @@ Route::get('/meme/del/waiting/{id}', 'MemesController@del_waiting_room')->name('
 Route::get('/meme/del/photo', 'MemesController@delete_file')->name('del_file');
 
 Route::get('/meme/comments/{id}', 'CommentsController@all_comments')->name('all_comments');
+Route::get('/meme/comments/delete/{id}', 'CommentsController@delete_comment')->name('delete_comments');
 Route::post('/meme/comment/add/{id}', 'CommentsController@add_comment')->name('add_comment');
 
 Route::get('/sendemail/send', 'SendEmailController@send');

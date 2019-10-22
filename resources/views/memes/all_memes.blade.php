@@ -3,7 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-10 col-md-9">
+        <div class="col-md-10 col-md-9">
             @foreach ($memes as $meme)
 
             <div class="card w-100 mt-5" style="width: 18rem;">
@@ -17,7 +17,7 @@
                 </div>    
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    @if($meme->waiting_room == 1 && Auth::user()->role == "admin")
+                    @if(isset(Auth::user()->role) && $meme->waiting_room == 1 && Auth::user()->role == "admin")
                     {{--<a href="/meme/del/waiting/{{$meme->id}}"><button class="btn btn-warning w-100">Change status</button></a>--}}
                     <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-warning w-100" data-toggle="modal" data-target="#exampleModalLong">Change status</button>
                     @endif

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-Use App\Meme;
-Use App\Comment;
-Use App\User;
+Use App\Models\Meme;
+Use App\Models\Comment;
+Use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
@@ -32,5 +32,11 @@ class CommentsController extends Controller
         $comment->save();
 
         return $this->all_comments($id);
+    }
+    public function delete_comment($id)
+    {  
+        $comment = Comment::where('id', $id)->delete();
+
+        return("OK");
     }
 }

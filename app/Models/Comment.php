@@ -10,6 +10,10 @@ class Comment extends Model
 
     public function meme()
     {
-        return $this->belongsTo('App\Meme');
+        return $this->belongsTo('App\Models\Meme');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 }

@@ -22,7 +22,7 @@
                     <li class="list-group-item">
                         <form action="/meme/comment/add/{{ $meme->id }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <textarea name="content" class="form-control" id="exampleFormControlTextarea1"
+                            <textarea name="content" id="comment" class="form-control" id="exampleFormControlTextarea1"
                                 rows="3" minlength="10" maxlength="200" required></textarea>
                             <button class='btn btn-primary w-100 mt-4 mb-3' type="submit">Add comment</button>
                         </form>
@@ -41,7 +41,7 @@
                                 <h5 class="mt-3">{{$comment->content}}</h5>
                                 <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}</h5>
                                 @if(Auth::check() && Auth::user()->role == "admin")
-                                <button type="button" class="btn btn-sm btn-danger w-100">Delete comment</button>
+                                <button id="{{$comment->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-sm btn-danger w-100" data-toggle="modal" data-target="#deleteComment">Delete comment</button>
                                 @endif
                             </div>
                         </ol>
@@ -56,53 +56,44 @@
     </div>
     <div class="mt-5 d-flex justify-content-center"></div>
 </div>
+
+<div class="modal fade" id="deleteComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Delete comment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+            <h4><i class="fas fa-trash"></i></h4>
+            <h3>Are you sure?</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button onclick="delete_comment()" type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 @endforeach
 <script>
-    let number;
+
+let number;
 
 function getNumber(id)
 {
     number = id;
 }
 
-function deleteMem()
+function delete_comment()
 {
-    window.location.href = '/meme/delete/'.concat(number);
-}
-
-function like(meme_id)
-{
+    window.location.href = '/meme/comments/delete/'.concat(number);
     
-    let number_like = meme_id.toString();
-    let class_like = "meme".concat(number_like);
-    let content = document.querySelector(".".concat(class_like)).innerHTML;
-    let insert = parseInt(content, 10);
-    insert = insert + 1;
-    let text = insert.toString();
-    document.querySelector(".".concat(class_like)).innerHTML = text;
-
-    $.ajax({
-        url: "/meme/like/".concat(number_like),
-        type: "GET",
-    });
-   
 }
 
-function dislike(meme_id)
-{
-    let number_like = meme_id.toString();
-    let class_like = "dislike".concat(number_like);
-    let content = document.querySelector(".".concat(class_like)).innerHTML;
-    let insert = parseInt(content, 10);
-    insert = insert + 1;
-    let text = insert.toString();
-    document.querySelector(".".concat(class_like)).innerHTML = text;
-
-    $.ajax({
-        url: "/meme/dislike/".concat(number_like),
-        type: "GET",
-    });
-}
 
 </script>
 
