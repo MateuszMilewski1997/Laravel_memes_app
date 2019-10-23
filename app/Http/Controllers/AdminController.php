@@ -12,15 +12,24 @@ class AdminController extends Controller
 {
     public function all_users()
     {
-    
+        $users = User::paginate(5);
+        return view('admin/adminPanel',['users' => $users]);
     }
-    public function change_role()
+    public function delete_user($id)
     {
-    
+        $user = User::where('id', $id)->Delete();
+        $users = User::all();
+
+        return view('admin/adminPanel',['users' => $users]);
     }
-    public function delete_user()
-    {
-    
+    public function change_role($id, $role)
+    {   
+        $user = User::find($id);
+        $user->role = $role;
+        $user->save();
+        
+        $users = User::paginate(5);
+        return view('admin/adminPanel',['users' => $users]);
     }
 
 }

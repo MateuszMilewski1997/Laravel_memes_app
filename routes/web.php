@@ -33,4 +33,8 @@ Route::get('/meme/comments/{id}', 'CommentsController@all_comments')->name('all_
 Route::get('/meme/comments/delete/{id}', 'CommentsController@delete_comment')->name('delete_comments');
 Route::post('/meme/comment/add/{id}', 'CommentsController@add_comment')->name('add_comment');
 
+Route::get('/users/all', 'AdminController@all_users')->name('all_users');
+Route::get('/users/delete/{id}', 'AdminController@delete_user')->name('delete_users');
+Route::get('/users/role/{id}/{role}', 'AdminController@change_role')->name('change_role');
+
 Route::get('/sendemail/send', 'SendEmailController@send');
