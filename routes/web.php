@@ -37,4 +37,8 @@ Route::get('/users/all', 'AdminController@all_users')->name('all_users');
 Route::get('/users/delete/{id}', 'AdminController@delete_user')->name('delete_users');
 Route::get('/users/role/{id}/{role}', 'AdminController@change_role')->name('change_role');
 
+Route::get('/account', 'UserController@my_account')->name('my_account');
+Route::post('/account/password', 'UserController@change_password')->name('change_password');
+Route::post('/account/email', 'UserController@change_email')->name('change_email');
+
 Route::get('/sendemail/send', 'SendEmailController@send');

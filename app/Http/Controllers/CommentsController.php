@@ -35,8 +35,10 @@ class CommentsController extends Controller
     }
     public function delete_comment($id)
     {  
+        $comment = Comment::where('id', $id)->get();
+        $meme = $comment[0]->mem_id;
         $comment = Comment::where('id', $id)->delete();
 
-        return("OK");
+        return $this->all_comments($meme);
     }
 }

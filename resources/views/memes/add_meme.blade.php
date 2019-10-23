@@ -4,7 +4,7 @@
 @section('content')
 <div class="container mt-5" style="background-color:#fff; padding: 20px; border: 1px solid rgba(0, 0, 0, 0.125);">
     <div style="background-color:#fff; border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
-        <h3>Create Post</h3>
+        <h3>Create meme</h3>
     </div>
     {!! Form::open(['action' => 'MemesController@create', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
     <div class="form-group mt-5">

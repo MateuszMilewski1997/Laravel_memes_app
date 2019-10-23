@@ -98,7 +98,7 @@ class MemesController extends Controller
         $meme->waiting_room = 0;
         $meme->save();
         
-        return $this->memes();
+        return $this->waiting_room();
     }
     public function delete_file($photo)
     {
