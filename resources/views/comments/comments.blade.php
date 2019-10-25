@@ -94,7 +94,10 @@ function getNumber(id)
 
 function delete_comment()
 {
-    window.location.href = '/meme/comments/delete/'.concat(number);
+    var event = {id: number, name: 'delete_comments'};
+    window.location.href = route('events.show', [event]);
+   
+    //window.location.href = '/meme/comments/delete/'.concat(number);
 }    
 
 </script>

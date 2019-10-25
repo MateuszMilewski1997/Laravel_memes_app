@@ -23,13 +23,13 @@
     <tbody>
       @foreach($users as $user)
       <tr>
-        @if(Auth::user()->id != $user->id)      
+        @if(Auth::user()->id != $user->id)
         <td>{{ $user->name }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->memes->count() }}</td>
         <td>{{ $user->comments->count() }}</td>
         <td>{{ $user->role }}</td>
-        <td><button id="{{$user->id}}" onclick="getNumber(this.id)" class="btn btn-warning" data-toggle="modal"
+      <td><button id="{{$user->id}}" data-role="{{$user->role}}" onclick="getRole(this.id)" class="btn btn-warning" data-toggle="modal"
             data-target="#editRole">Edit role</button></td>
         <td><button id="{{$user->id}}" onclick="getNumber(this.id)" class="btn btn-danger" data-toggle="modal"
             data-target="#deleteUser">Delete</button></td>
@@ -60,7 +60,6 @@
     </div>
   </div>
 </div>
-
 <div class="modal fade" id="editRole" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -73,11 +72,11 @@
       </div>
       <div class="modal-body" style="text-align: center;">
         <h3 class="mb-4">Select role</h3>
-        <select class="form-control mb-2" id="exampleFormControlSelect1">
-          <option>user</option>
-          <option>moderator</option>
-          <option>admin</option>
-          <option>blocked</option>
+        <select id="select-role" class="form-control mb-2" id="exampleFormControlSelect1">
+          <option value="user" @if( $user->role == "user") selected @endif>user</option>
+          <option value="moderator" @if( $user->role == "moderator") selected @endif>moderator</option>
+          <option value="admin" @if( $user->role == "admin") selected @endif>admin</option>
+          <option value="blocked" @if( $user->role == "blocked") selected @endif>blocked</option>
         </select>
       </div>
       <div class="modal-footer">
@@ -96,6 +95,16 @@ function getNumber(id)
 {
     number = id;
 }
+
+function getRole(id)
+{
+    number = id;
+    let iduser = id.toString();
+    element = document.getElementById(iduser);
+    element.getAttribute("data-role");
+    document.getElementById("select-role").value =  element.getAttribute("data-role");
+}
+
 function deleteUser()
 {
   window.location.href = '/users/delete/'.concat(number);
