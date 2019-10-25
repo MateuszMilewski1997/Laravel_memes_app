@@ -18,15 +18,10 @@
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     @if(isset(Auth::user()->role) && $meme->waiting_room == 1 && Auth::user()->role == "admin")
-                    {{--<a href="/meme/del/waiting/{{$meme->id}}"><button class="btn btn-warning w-100">Change status</button></a>--}}
                     <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-warning w-100" data-toggle="modal" data-target="#exampleModalLong">Change status</button>
                     @endif
                 </div>
                 <ul class="list-group list-group-flush">
-                    {{--}li class="list-group-item">
-                        <h3> <i class="far fa-clock"></i> : {{ $meme->created_at }}</h3>
-                    </li>
-                   --}}
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-6">
@@ -56,7 +51,7 @@
                     @endif
                 </ul>
                 <div class="card-body">
-                    <a href="/meme/comments/{{ $meme->id }}"><button class="btn btn-lg btn-secondary w-100">Show
+                    <a href="{{route('all_comments', $meme->id)}}"><button class="btn btn-lg btn-secondary w-100">Show
                             comments</button></a>
                 </div>
             </div>

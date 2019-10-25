@@ -17,6 +17,15 @@ class UserController extends Controller
     }
     public function change_email(Request $request)
     {
+        $request->validate([
+            'oldEmail' => 'required|in:'.auth()->user()->email,
+            'newEmail' => 'required|unique:users,email',
+        ],
+        [
+            'oldEmail.in' => 'Email is not valid',
+        ]
+        );
+        
         $id = auth()->user()->id;
         $user = User::find($id);
         $user->email = $request->newEmail;
@@ -26,6 +35,13 @@ class UserController extends Controller
     }
     public function change_password(Request $request)
     {
+        $request->validate([
+            'oldPassword' => 'required',
+            'newPassword' => 'required|min:7',
+            'repeatPassword' => 'required|same:newPassword',
+        ]
+        );
+
         $id = auth()->user()->id;
         $user = User::find($id);
         $user->password = bcrypt($request->newPassword);

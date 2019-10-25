@@ -23,6 +23,7 @@
     <tbody>
       @foreach($users as $user)
       <tr>
+        @if(Auth::user()->id != $user->id)      
         <td>{{ $user->name }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->memes->count() }}</td>
@@ -32,6 +33,7 @@
             data-target="#editRole">Edit role</button></td>
         <td><button id="{{$user->id}}" onclick="getNumber(this.id)" class="btn btn-danger" data-toggle="modal"
             data-target="#deleteUser">Delete</button></td>
+        @endif
       </tr>
       @endforeach
     </tbody>

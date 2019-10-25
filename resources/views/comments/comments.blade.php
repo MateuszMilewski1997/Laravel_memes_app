@@ -20,12 +20,16 @@
                         <h4> <i class="far fa-clock"></i> : {{ $meme->created_at }}</h4>
                     </li>
                     <li class="list-group-item">
-                        <form action="/meme/comment/add/{{ $meme->id }}" method="POST" enctype="multipart/form-data">
-                            {{ csrf_field() }}
-                            <textarea name="content" id="comment" class="form-control" id="exampleFormControlTextarea1"
-                                rows="3" minlength="10" maxlength="200" required></textarea>
-                            <button class='btn btn-primary w-100 mt-4 mb-3' type="submit">Add comment</button>
-                        </form>
+                        @if(Auth::check())
+                            <form action="/meme/comment/add/{{ $meme->id }}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <textarea name="content" id="comment" class="form-control" id="exampleFormControlTextarea1"
+                                    rows="3" minlength="10" maxlength="200" required></textarea>
+                                <button class='btn btn-primary w-100 mt-4 mb-3' type="submit">Add comment</button>
+                            </form>
+                        @else
+                            <h3>Login to write comment!</h3>    
+                        @endif
                     </li>
                     <li class="list-group-item">
                         <h2>Comments:</h2>
@@ -40,7 +44,7 @@
                                 <hr style="width: 100%; color: black; height: 1px; background-color:gray;" />
                                 <h5 class="mt-3">{{$comment->content}}</h5>
                                 <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}</h5>
-                                @if(Auth::check() && Auth::user()->role == "admin")
+                                @if(Auth::check() && Auth::user()->role == "admin" || Auth::check() && Auth::user()->id == $comment->user->id)
                                 <button id="{{$comment->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-sm btn-danger w-100" data-toggle="modal" data-target="#deleteComment">Delete comment</button>
                                 @endif
                             </div>
@@ -91,9 +95,7 @@ function getNumber(id)
 function delete_comment()
 {
     window.location.href = '/meme/comments/delete/'.concat(number);
-    
-}
-
+}    
 
 </script>
 
