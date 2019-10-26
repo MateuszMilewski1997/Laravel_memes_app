@@ -5,13 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-sm-10 col-md-9">
             @foreach ($memes as $meme)
-            <div class="card w-100 mt-5" style="width: 18rem;">
+            <div class="card w-100 mt-5 comment">
                 <div class="row">
-                    <div class="col-5 ml-3"
-                        style="background: #888; color: white; margin-bottom: 15px; border-bottom-right-radius: 7px; padding-top: 5px;">
+                    <div class="col-5 ml-3 comment-title">
                         <h4>{{ $meme->title }}</h4>
                     </div>
-                    <div class="col-5" style="padding-top: 5px;">
+                    <div class="col-5 comment-user">
                         <h5> <i class="far fa-user"></i> : {{$meme->user->name}}</h5>
                     </div>
                 </div>
@@ -41,11 +40,10 @@
                         @endif
                         @foreach($comments as $comment)
                         <ol>
-                            <div id="comment{{ $comment->id }}" class="w-100 mb-2 mt-3"
-                                style="background-color: #f8fafc; padding: 15px; border-radius: 5px; border: 1px solid lightgray">
-                                <h4><i class="far fa-user-circle"></i><span style="font-size: 17px;">
+                            <div id="comment{{ $comment->id }}" class="w-100 mb-2 mt-3 comment-list">
+                                <h4><i class="far fa-user-circle"></i><span class="comment-span">
                                         {{$comment->user->name}}</span></h4>
-                                <hr style="width: 100%; color: black; height: 1px; background-color:gray;" />
+                                <hr class="comment-hr"/>
                                 <h5 class="mt-3">{{$comment->content}}</h5>
                                 <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}</h5>
                                 @if(Auth::check() && Auth::user()->role == "admin" || Auth::check() && Auth::user()->id
@@ -78,7 +76,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="text-align: center;">
+            <div class="modal-body comment-modal">
                 <h4><i class="fas fa-trash"></i></h4>
                 <h3>Are you sure?</h3>
             </div>

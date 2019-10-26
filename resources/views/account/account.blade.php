@@ -11,9 +11,8 @@
     @endif
     <div class="row mt-5">
         <div class="col-sm-12 col-md-6 mb-4">
-            <form method="post" action="/account/email" enctype="multipart/form-data"
-                style="background: white; border-radius: 5px; border: 1px solid gray; padding: 15px;">
-                <div class="mb-4" style="background-color:#fff; border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
+            <form class="account-form" method="post" action="/account/email" enctype="multipart/form-data">
+                <div class="mb-4 account-form-header">
                     <h3>Reset email</h3>
                 </div>
                 <div class="form-group">
@@ -31,9 +30,8 @@
             </form>
         </div>
         <div class="col-sm-12 col-md-6">
-            <form method="post" action="/account/password" enctype="multipart/form-data"
-                style="background: white; border-radius: 5px; border: 1px solid gray; padding: 15px;">
-                <div class="mb-4" style="background-color:#fff; border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
+            <form class="form-password" method="post" action="/account/password" enctype="multipart/form-data">
+                <div class="mb-4 form-password-header">
                     <h3>Reset password</h3>
                 </div>
                 <div class="form-group">

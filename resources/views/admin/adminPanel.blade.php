@@ -49,7 +49,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="text-align: center;">
+      <div class="modal-body align">
         <h3><i class="fas fa-trash"></i></h3>
         <h4>Are you sure</h4>
       </div>
@@ -70,7 +70,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="text-align: center;">
+      <div class="modal-body align">
         <h3 class="mb-4">Select role</h3>
         <select id="select-role" class="form-control mb-2" id="exampleFormControlSelect1">
           <option value="user" @if( $user->role == "user") selected @endif>user</option>

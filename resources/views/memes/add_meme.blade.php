@@ -2,8 +2,8 @@
 @section('content')
 
 @section('content')
-<div class="container mt-5" style="background-color:#fff; padding: 20px; border: 1px solid rgba(0, 0, 0, 0.125);">
-    <div style="background-color:#fff; border-bottom: 1px solid rgba(0, 0, 0, 0.125);">
+<div class="container mt-5 form">
+    <div class="form-header">
         <h3>Create meme</h3>
     </div>
     {!! Form::open(['action' => 'MemesController@create', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
@@ -16,8 +16,7 @@
             <h4>{{Form::label('cover_image', 'Chose photo to upload')}}</h4>
         </div>
         <div>{{Form::file('cover_image', ['class'=>'btn btn-secondary', 'onchange'=>'readURL(this)'])}}</div>
-        <img style="display: none; width: 150px; height: auto; margin-top: 30px; border-radius: 3px; border: 1px solid"
-            id="blah" src="#" alt="your image" />
+        <img class="form-img" id="blah" src="#" alt="your image" />
     </div>
     @if ($errors->any())
     <div class="alert alert-danger">

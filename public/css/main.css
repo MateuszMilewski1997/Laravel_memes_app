@@ -1,0 +1,98 @@
+/*admin panel*/
+.align{
+    text-align: center;
+}
+/*add meme form*/
+.form{
+    background-color:#fff; 
+    padding: 20px; border: 
+    1px solid rgba(0, 0, 0, 0.125);
+}
+.form-header{
+    background-color:#fff; 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.form-img{
+    display: none; 
+    width: 150px; height: auto; 
+    margin-top: 30px; 
+    border-radius: 3px; border: 1px solid;
+}
+/*all memes*/
+.meme{
+    width: 18rem;
+}
+.meme-title{
+    background: #888; color: white; 
+    margin-bottom: 15px; 
+    border-bottom-right-radius: 7px; 
+    padding-top: 5px;
+}
+.meme-user{
+    padding-top: 5px;
+}
+.meme-font-like{
+    color:green;
+}
+.meme-font-dislike{
+    color:red;
+}
+.modal-status{
+    text-align:center;
+}
+.modal-delete{
+    text-align:center;
+}
+/*comments*/
+.comment{
+    width: 18rem;
+}
+.comment-title{
+    background: #888; 
+    color: white; 
+    margin-bottom: 15px; 
+    border-bottom-right-radius: 7px; 
+    padding-top: 5px;
+}
+.comment-user{
+    padding-top: 5px;
+}
+.comment-span{
+    font-size: 17px;
+}
+.comment-hr{
+    width: 100%; 
+    color: black; 
+    height: 1px; 
+    background-color:gray;
+}
+.comment-modal{
+    text-align: center;
+}
+.comment-list{
+    background-color: #f8fafc; 
+    padding: 15px; 
+    border-radius: 5px; 
+    border: 1px solid lightgray;
+}
+/*account*/
+.account-form{
+    background: white; 
+    border-radius: 5px; 
+    border: 1px solid gray; 
+    padding: 15px;
+}
+.accounf-form-header{
+    background-color:#fff; 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.form-password{
+    background: white; 
+    border-radius: 5px; 
+    border: 1px solid gray; 
+    padding: 15px;
+}
+.form-password-header{
+    background-color:#fff; 
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
