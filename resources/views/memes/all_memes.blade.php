@@ -6,19 +6,21 @@
         <div class="col-md-10 col-md-9">
             @foreach ($memes as $meme)
 
-            <div class="card w-100 mt-5" style="width: 18rem;">
+            <div id="mem{{ $meme->id }}" class="card w-100 mt-5" style="width: 18rem;">
                 <div class="row">
-                    <div class="col-5 ml-3" style="background: #888; color: white; margin-bottom: 15px; border-bottom-right-radius: 7px; padding-top: 5px;">
+                    <div class="col-5 ml-3"
+                        style="background: #888; color: white; margin-bottom: 15px; border-bottom-right-radius: 7px; padding-top: 5px;">
                         <h4>{{ $meme->title }}</h4>
                     </div>
                     <div class="col-5" style="padding-top: 5px;">
-                            <h5> <i class="far fa-user"></i> : {{$meme->user->name}}</h5>
+                        <h5> <i class="far fa-user"></i> : {{$meme->user->name}}</h5>
                     </div>
-                </div>    
+                </div>
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     @if(isset(Auth::user()->role) && $meme->waiting_room == 1 && Auth::user()->role == "admin")
-                    <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-warning w-100" data-toggle="modal" data-target="#exampleModalLong">Change status</button>
+                    <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-warning w-100"
+                        data-toggle="modal" data-target="#exampleModalLong">Change status</button>
                     @endif
                 </div>
                 <ul class="list-group list-group-flush">
@@ -74,7 +76,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" onclick='deleteMem()' class="btn btn-danger">Delete</button>
+                            <button type="button" onclick='deleteMem()' class="btn btn-danger" data-dismiss="modal">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -82,34 +84,34 @@
         </div>
     </div>
     <div class="mt-5 d-flex justify-content-center">
-            {{ $memes->links() }}
+        {{ $memes->links() }}
     </div>
 </div>
 
-  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Change status</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Change status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align:center;">
+                <h2><i class="far fa-question-circle"></i></h2>
+                <h3>Are you sure?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="changeStatus()" class="btn btn-warning" data-dismiss="modal">Change</button>
+            </div>
         </div>
-        <div class="modal-body" style="text-align:center;">
-            <h2><i class="far fa-question-circle"></i></h2>
-            <h3>Are you sure?</h3>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" onclick="changeStatus()" class="btn btn-success">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <script>
-
-let number;
+    let number;
 
 function getNumber(id)
 {
@@ -118,12 +120,16 @@ function getNumber(id)
 
 function changeStatus()
 {
-    window.location.href = '/meme/del/waiting/'.concat(number);
+    let name = "mem".concat(number);
+    document.getElementById(name).style.display = "none";
+    $.ajax({url: '/meme/del/waiting/'.concat(number)});
 }
 
 function deleteMem()
 {
-    window.location.href = '/meme/delete/'.concat(number);
+    let name = "mem".concat(number);
+    document.getElementById(name).style.display = "none";
+    $.ajax({url: '/meme/delete/'.concat(number)});
 }
 
 function like(meme_id)

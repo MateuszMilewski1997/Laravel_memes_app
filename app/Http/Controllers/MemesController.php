@@ -72,13 +72,20 @@ class MemesController extends Controller
 
         return $this->my_memes();
     }
-    public function like($meme)
+    public function like($meme, Request $request)
     {        
+        $id = $meme;
         $meme = Meme::find($meme);
         $count = $meme->likes;
         $count++;
         $meme->likes = $count;
         $meme->save();
+        
+        //$request->session()->put('thumbs', [
+        //    'id' => $id
+        //]);
+
+        //dd(request()->session()->get('thumbs'));
 
         return ("ok");
     }
