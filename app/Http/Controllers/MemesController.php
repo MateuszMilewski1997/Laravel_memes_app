@@ -24,7 +24,7 @@ class MemesController extends Controller
     {
         $memes = Meme::where('waiting_room', 1)->orderBy('created_at','desc')->paginate(10);
         
-        return view('memes/all_memes',['memes'=>$memes]);
+        return view('memes/all_memes',['memes'=>$memes, 'waiting_room' => 1]);
     }
     public function my_memes()
     {

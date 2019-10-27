@@ -49,6 +49,10 @@
                             class="btn btn-lg btn-danger w-100" data-toggle="modal"
                             data-target="#exampleModal">Delete</button>
                     </li>
+                    <li class="list-group-item">
+                        <button onclick="getNumber(this.id)" id="{{ $meme->id }}" type="button"
+                            class="btn btn-lg btn-success w-100">Edit</button>
+                    </li>
                     @endif
                 </ul>
                 <div class="card-body">
@@ -91,12 +95,12 @@
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Change status</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Change status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             <div class="modal-body modal-status">
                 <h2><i class="far fa-question-circle"></i></h2>
                 <h3>Are you sure?</h3>

@@ -23,7 +23,8 @@
                         @if(Auth::check())
                         <form action="/meme/comment/add/{{ $meme->id }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <textarea onkeypress="handle(event)" name="content" id="comment" class="form-control"
+                            <h5>Reminded <span id="chars">200</span> chars</h5>
+                            <textarea onkeydown="handle(event)" name="content" id="comment" class="form-control"
                                 id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="200"
                                 required></textarea>
                             <button type="submit" id="send-comment" class='btn btn-primary w-100 mt-4 mb-3'>Add
@@ -101,17 +102,19 @@ function getNumber(id)
 function Commentsend()
 {
     let content = document.getElementById("comment").value;
+    alert(content.length);
 
     if( content.length > 10 && content.length < 200 )
     {
+        alert("send");
         //alert(content);
-        $.ajax({
+        /*$.ajax({
         url         : "/meme/comment/add/4", //wymagane, gdzie się łączymy
         method      : "post", //typ połączenia, domyślnie get
         data        : { //dane do wysyłki
         content : 'testcomment'
         })
-        });
+        });*/
     }    
 }
 
@@ -123,6 +126,11 @@ function delete_comment()
 }
 
 function handle(e){
+                
+        let content = document.getElementById("comment").value;
+        console.log(200 - content.length);
+        document.getElementById('chars').innerText = 200 - content.length;
+
         if(e.keyCode === 13){
             e.preventDefault(); 
             document.getElementById("send-comment").click();
