@@ -58,8 +58,7 @@
                             data-target="#exampleModal">Delete</button>
                     </li>
                     <li class="list-group-item">
-                        <button onclick="getNumber(this.id)" id="{{ $meme->id }}" type="button"
-                            class="btn btn-lg btn-success w-100">Edit</button>
+                        <a href="{{route('edit_meme', $meme->id)}}"><button type="button" class="btn btn-lg btn-success w-100">Edit</button></a>
                     </li>
                     @endif
                 </ul>

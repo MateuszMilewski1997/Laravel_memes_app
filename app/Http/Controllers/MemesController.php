@@ -85,17 +85,30 @@ class MemesController extends Controller
     public function like($meme, Request $request)
     {        
         $id = $meme;
+        
+        if($request->session()->has('likes'))
+        {
+            $array = $request->session()->get('likes');
+            //dd($array);
+            $request->session()->forget('message');
+            array_push($array, intval($id));
+            $request->session()->put('likes', $array);
+        }
+        else
+        {
+            $array = array(intval($id));
+            $request->session()->put('likes', $array);
+        }
+
+        //dd($request->session()->get('likes'));
+ 
         $meme = Meme::find($meme);
         $count = $meme->likes;
         $count++;
         $meme->likes = $count;
         $meme->save();
         
-        //$request->session()->put('thumbs', [
-        //    'id' => $id
-        //]);
-
-        //dd(request()->session()->get('thumbs'));
+       
 
         return ("ok");
     }
@@ -122,5 +135,11 @@ class MemesController extends Controller
         $path = "storage/cover_images/".$photo[0]->photoPath;
         File::delete($path);
 
+    }
+    public function edit_meme($id)
+    {
+        $meme = Meme::find($id);
+
+        return view('memes/edit_meme',['meme'=>$meme]);
     }
 }
