@@ -35,8 +35,14 @@ class UserController extends Controller
     }
     public function change_password(Request $request)
     {
+       
+        
         $request->validate([
-            'oldPassword' => 'required',
+            'oldPassword' =>  ['required', function ($attribute, $value, $fail) {
+                if (!\Hash::check($value, auth()->user()->password)) {
+                    return $fail(__('The current password is incorrect.'));
+                }
+            }],
             'newPassword' => 'required|min:7',
             'repeatPassword' => 'required|same:newPassword',
         ]

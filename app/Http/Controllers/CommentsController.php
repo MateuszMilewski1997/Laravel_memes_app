@@ -31,7 +31,13 @@ class CommentsController extends Controller
         $comment->content = $request->content;
         $comment->save();
 
-        return $this->all_comments($id);
+        //return back();
+        $meme = Meme::where('id', $id)->get();
+        $comments = Comment::where('mem_id', $id)->orderBy('created_at','desc')->paginate(10);
+        $count = $comments->count();
+        if($count == 0)  return view('comments/comments',['memes' => $meme, 'comments' => $comments, 'message' => "Add first comment!"]);
+
+        return view('comments/comments',['memes' => $meme, 'comments' => $comments, 'back' => 1]);
     }
     public function delete_comment($id)
     {  

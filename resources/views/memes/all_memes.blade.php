@@ -30,7 +30,7 @@
                                         class="meme{{ $meme->id }}">{{ $meme->likes }}</span></h3>
                                 @if(!isset($auth))
                                 <button onclick="like(this.id)" id="{{ $meme->id }}" type="button"
-                                    class="btn btn-outline-success w-100">Like</button>
+                                class="btn btn-outline-success w-100 like{{ $meme->id }}">Like</button>
                                 @endif
                             </div>
                             <div class="col-6">
@@ -38,7 +38,7 @@
                                         class="dislike{{ $meme->id }}">{{ $meme->dislikes }}</span></h3>
                                 @if(!isset($auth))
                                 <button onclick="dislike(id)" id="{{ $meme->id }}" type="button"
-                                    class="btn btn-outline-danger w-100">Dislike</button>
+                                    class="btn btn-outline-danger w-100 notlike{{ $meme->id }}">Dislike</button>
                                 @endif
                             </div>
                         </div>
@@ -138,6 +138,9 @@ function deleteMem()
 function like(meme_id)
 {
     
+    document.querySelector(".like".concat(meme_id)).disabled = true;
+    document.querySelector(".notlike".concat(meme_id)).disabled = true;
+        
     let number_like = meme_id.toString();
     let class_like = "meme".concat(number_like);
     let content = document.querySelector(".".concat(class_like)).innerHTML;
@@ -155,6 +158,9 @@ function like(meme_id)
 
 function dislike(meme_id)
 {
+    document.querySelector(".like".concat(meme_id)).disabled = true;
+    document.querySelector(".notlike".concat(meme_id)).disabled = true;
+    
     let number_like = meme_id.toString();
     let class_like = "dislike".concat(number_like);
     let content = document.querySelector(".".concat(class_like)).innerHTML;
