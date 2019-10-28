@@ -57,7 +57,7 @@ class MemesController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:50',
+            'title' => 'required|max:50|min:5',
             'cover_image' => 'required',
         ]);
         
@@ -141,5 +141,41 @@ class MemesController extends Controller
         $meme = Meme::find($id);
 
         return view('memes/edit_meme',['meme'=>$meme]);
+    }
+    public function edit_title($id,Request $request)
+    {
+        $request->validate([
+            'title' => 'required|max:50|min:5',
+        ]);
+        
+        $meme = Meme::find($id);
+        $meme->title = $request->title;
+        $meme->save();
+
+        return view('memes/edit_meme',['meme'=>$meme, 'message' => "Title has been changed!"]);
+    }
+    public function edit_photo($id, Request $request)
+    {
+        $request->validate([
+            'cover_image' => 'required',
+        ]);
+        
+        $meme = Meme::find($id);
+        $oldPhoto = $meme->photoPath;
+         
+        $photo = Meme::select('photoPath')->where('id', $id)->get();
+        $this->delete_file($photo);
+
+        $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        $extension = $request->file('cover_image')->getClientOriginalExtension();
+        $fileNameToStore= date('Y-m-d')."/".$filename.'_'.time().'.'.$extension;
+        Storage::makeDirectory("public/cover_images/".date('Y-m-d'));
+        $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+
+        $meme->photoPath = $fileNameToStore;
+        $meme->save();
+
+        return view('memes/edit_meme',['meme'=>$meme, 'message' => "Photo has been changed!"]);
     }
 }
