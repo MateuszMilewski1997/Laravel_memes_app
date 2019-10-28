@@ -20,16 +20,16 @@ class AdminController extends Controller
         $user = User::where('id', $id)->Delete();
         $users = User::all();
 
-        return view('admin/adminPanel',['users' => $users]);
+        return view('admin/adminPanel',['users' => $users, 'message' => 'User hes been delete!']);
     }
     public function change_role($id, $role)
     {   
         $user = User::find($id);
         $user->role = $role;
         $user->save();
-        
+
         $users = User::paginate(5);
-        return view('admin/adminPanel',['users' => $users]);
+        return view('admin/adminPanel',['users' => $users, 'message' => 'Role has been changed!']);
     }
 
 }

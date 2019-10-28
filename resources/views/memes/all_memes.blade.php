@@ -2,10 +2,18 @@
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="container">
+    @if(isset($message))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Mem has been created!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    @endif
+    <div class="alert"></div>
     <div class="row justify-content-center">
         <div class="col-md-10 col-md-9">
             @foreach ($memes as $meme)
-
             <div id="mem{{ $meme->id }}" class="card w-100 mt-5 meme">
                 <div class="row">
                     <div class="col-5 ml-3 meme-title">
@@ -17,7 +25,7 @@
                 </div>
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    @if(isset(Auth::user()->role) && $meme->waiting_room == 1 && Auth::user()->role == "admin")
+                    @if(isset(Auth::user()->role) && $meme->waiting_room == 1 && Auth::user()->role == "admin" && isset($waiting_room))
                     <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-warning w-100"
                         data-toggle="modal" data-target="#exampleModalLong">Change status</button>
                     @endif
@@ -30,7 +38,7 @@
                                         class="meme{{ $meme->id }}">{{ $meme->likes }}</span></h3>
                                 @if(!isset($auth))
                                 <button onclick="like(this.id)" id="{{ $meme->id }}" type="button"
-                                class="btn btn-outline-success w-100 like{{ $meme->id }}">Like</button>
+                                    class="btn btn-outline-success w-100 like{{ $meme->id }}">Like</button>
                                 @endif
                             </div>
                             <div class="col-6">
@@ -79,7 +87,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" onclick='deleteMem()' class="btn btn-danger" data-dismiss="modal">Delete</button>
+                            <button type="button" onclick='deleteMem()' class="btn btn-danger"
+                                data-dismiss="modal">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -95,19 +104,20 @@
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Change status</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Change status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body modal-status">
                 <h2><i class="far fa-question-circle"></i></h2>
                 <h3>Are you sure?</h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onclick="changeStatus()" class="btn btn-warning" data-dismiss="modal">Change</button>
+                <button type="button" onclick="changeStatus()" class="btn btn-warning"
+                    data-dismiss="modal">Change</button>
             </div>
         </div>
     </div>
@@ -126,6 +136,7 @@ function changeStatus()
     let name = "mem".concat(number);
     document.getElementById(name).style.display = "none";
     $.ajax({url: '/meme/del/waiting/'.concat(number)});
+    document.querySelector(".alert").innerHTML = "<div class='alert alert-success alert-dismissible fade show alert' role='alert'><strong>Status changed!</strong><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 }
 
 function deleteMem()
@@ -133,6 +144,7 @@ function deleteMem()
     let name = "mem".concat(number);
     document.getElementById(name).style.display = "none";
     $.ajax({url: '/meme/delete/'.concat(number)});
+    document.querySelector(".alert").innerHTML = "<div class='alert alert-success alert-dismissible fade show alert' role='alert'><strong>Mem has been delete!</strong><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 }
 
 function like(meme_id)

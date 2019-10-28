@@ -11,8 +11,15 @@ use Validator,Redirect,Response,File;
 
 class UserController extends Controller
 {
-    public function my_account()
+    public function my_account(Request $request)
     {
+        if ($request->session()->has('message')) 
+        {          
+            $message = $request->session()->get('message');
+            $request->session()->forget('message');
+            return view('account/account',['message' => $message]);
+        }
+        
         return view('account/account');
     }
     public function change_email(Request $request)
@@ -31,7 +38,9 @@ class UserController extends Controller
         $user->email = $request->newEmail;
         $user->save();
 
-        return $this->my_account();
+        $request->session()->put('message', 'Email has been changed!');
+
+        return $this->my_account($request);
     }
     public function change_password(Request $request)
     {
@@ -53,7 +62,9 @@ class UserController extends Controller
         $user->password = bcrypt($request->newPassword);
         $user->save();
         
-        return $this->my_account();
+        $request->session()->put('message', 'Password has been changed!');
+
+        return $this->my_account($request);
     }
     
 

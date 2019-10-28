@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="container">
+  @if(isset($message))
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{ $message }}</strong> 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  @endif
   <label class="sr-only mt-3" for="inlineFormInputGroupUsername">Username</label>
   <div class="input-group">
     <div class="input-group-prepend">
@@ -29,8 +38,8 @@
         <td>{{ $user->memes->count() }}</td>
         <td>{{ $user->comments->count() }}</td>
         <td>{{ $user->role }}</td>
-      <td><button id="{{$user->id}}" data-role="{{$user->role}}" onclick="getRole(this.id)" class="btn btn-warning" data-toggle="modal"
-            data-target="#editRole">Edit role</button></td>
+        <td><button id="{{$user->id}}" data-role="{{$user->role}}" onclick="getRole(this.id)" class="btn btn-warning"
+            data-toggle="modal" data-target="#editRole">Edit role</button></td>
         <td><button id="{{$user->id}}" onclick="getNumber(this.id)" class="btn btn-danger" data-toggle="modal"
             data-target="#deleteUser">Delete</button></td>
         @endif
@@ -72,11 +81,11 @@
       </div>
       <div class="modal-body align">
         <h3 class="mb-4">Select role</h3>
-        <select id="select-role" class="form-control mb-2" id="exampleFormControlSelect1">
-          <option value="user" @if( $user->role == "user") selected @endif>user</option>
-          <option value="moderator" @if( $user->role == "moderator") selected @endif>moderator</option>
-          <option value="admin" @if( $user->role == "admin") selected @endif>admin</option>
-          <option value="blocked" @if( $user->role == "blocked") selected @endif>blocked</option>
+        <select class="form-control mb-2" id="exampleFormControlSelect1">
+          <option @if( $user->role == "user") selected @endif >user</option>
+          <option @if( $user->role == "moderator") selected @endif >moderator</option>
+          <option @if( $user->role == "admin") selected @endif >admin</option>
+          <option @if( $user->role == "blocked") selected @endif >blocked</option>
         </select>
       </div>
       <div class="modal-footer">
@@ -112,7 +121,7 @@ function deleteUser()
 function editRole()
 {
   var role = document.querySelector("#exampleFormControlSelect1").value;
-  window.location.href = '/users/role/'.concat(number).concat("/").concat(role);  
+  window.location.href = '/users/role/'.concat(number).concat("/").concat(role);    
 }
 
 </script>

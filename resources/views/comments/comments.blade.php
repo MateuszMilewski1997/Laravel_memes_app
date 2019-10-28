@@ -2,6 +2,7 @@
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="container">
+    <div class="alert"></div>
     @if(isset($back)) <span class="back"><span> @endif
             <div class="row justify-content-center">
                 <div class="col-sm-10 col-md-9">
@@ -119,6 +120,8 @@ function delete_comment()
     let name = "comment".concat(number);
     document.getElementById(name).style.display = "none";
     $.ajax({url: '/meme/comments/delete/'.concat(number)});
+    document.querySelector(".alert").innerHTML = "<div class='alert alert-success alert-dismissible fade show alert' role='alert'><strong>Comment has been delete!</strong><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+
 }
 
 function handle(e){

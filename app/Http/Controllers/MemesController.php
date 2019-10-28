@@ -26,11 +26,19 @@ class MemesController extends Controller
         
         return view('memes/all_memes',['memes'=>$memes, 'waiting_room' => 1]);
     }
-    public function my_memes()
+    public function my_memes(Request $request)
     {
         $user_id = auth()->user()->id;
         $my_memes = Meme::where('user_id', $user_id)->paginate(10);
         $auth = "auth";
+
+        //dd($request->session()->get('message'));
+
+        if ($request->session()->has('message')) 
+        {          
+            $request->session()->forget('message');
+            return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth, 'message' => 1]);
+        }
 
         return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
     }
@@ -70,7 +78,9 @@ class MemesController extends Controller
         $post->waiting_room = 1;  
         $post->save();
 
-        return $this->my_memes();
+        $request->session()->put('message', 'Mem has been created!');
+
+        return $this->my_memes($request);
     }
     public function like($meme, Request $request)
     {        
