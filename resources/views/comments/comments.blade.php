@@ -27,7 +27,7 @@
                                     enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <h5>Reminded <span id="chars">200</span> chars</h5>
-                                    <textarea onkeydown="handle(event)" name="content" id="comment" class="form-control"
+                                    <textarea onkeyup="handle(event)" name="content" id="comment" class="form-control"
                                         id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="200"
                                         required></textarea>
                                     <button type="submit" id="send-comment" class='btn btn-primary w-100 mt-4 mb-3'>Add
@@ -51,12 +51,14 @@
                                         <h5 class="mt-3">{{$comment->content}}</h5>
                                         <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}
                                         </h5>
-                                        @if(Auth::check() && Auth::user()->role == "admin" || Auth::check() &&
-                                        Auth::user()->id
-                                        == $comment->user->id)
+                                        @if(Auth::check() && Auth::user()->role == "admin")
                                         <button id="{{$comment->id}}" onclick="getNumber(this.id)" type="button"
-                                            class="btn btn-sm btn-danger w-100" data-toggle="modal"
+                                            class="btn btn-sm btn-danger w-40" data-toggle="modal"
                                             data-target="#deleteComment">Delete comment</button>
+                                        @endif
+                                        @if(Auth::check() && Auth::user()->id == $comment->user->id)
+                                        <button id="{{$comment->id}}" onclick="getNumber(this.id)" type="button"
+                                            class="btn btn-sm btn-warning w-40">Edit comment</button>
                                         @endif
                                     </div>
                                 </ol>
@@ -96,46 +98,7 @@
 </div>
 
 @endforeach
-<script>
-    let number;
 
-window.onload = function() 
-{
-        if(document.querySelector(".back"))
-        {
-            window.history.back();
-            //window.location = document.referrer;
-            //window.location=document.referrer;
-        }
-        
-};
-
-function getNumber(id)
-{
-    number = id;
-}
-
-function delete_comment()
-{
-    let name = "comment".concat(number);
-    document.getElementById(name).style.display = "none";
-    $.ajax({url: '/meme/comments/delete/'.concat(number)});
-    document.querySelector(".alert").innerHTML = "<div class='alert alert-success alert-dismissible fade show alert' role='alert'><strong>Comment has been delete!</strong><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-
-}
-
-function handle(e){
-                
-        let content = document.getElementById("comment").value;
-        console.log(200 - content.length);
-        document.getElementById('chars').innerText = 200 - content.length;
-
-        if(e.keyCode === 13){
-            e.preventDefault(); 
-            document.getElementById("send-comment").click();
-        }
-}
-
-</script>
+<script src="{{ asset('js/comments.js') }}"></script>
 
 @endsection

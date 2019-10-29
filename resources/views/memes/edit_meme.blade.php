@@ -51,18 +51,7 @@
         </div>
     </form>
 </div>
-<script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#blah').css("display","block");
-                $('#blah').attr('src', e.target.result);
-            }
+<script src="{{ asset('js/edit_meme.js') }}"></script>
 
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
 @endsection

@@ -32,19 +32,9 @@
     </div>
     {!! Form::close() !!}
 </div>
+
+<script src="{{ asset('js/add_meme.js') }}"></script>
+
 @endsection
 
-<script type="text/javascript">
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#blah').css("display","block");
-                $('#blah').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-</script>
