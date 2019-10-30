@@ -31,7 +31,6 @@ class CommentsController extends Controller
         $comment->content = $request->content;
         $comment->save();
 
-        //return back();
         $meme = Meme::where('id', $id)->get();
         $comments = Comment::where('mem_id', $id)->orderBy('created_at','desc')->paginate(10);
         $count = $comments->count();
@@ -41,10 +40,11 @@ class CommentsController extends Controller
     }
     public function delete_comment($id)
     {  
-        $comment = Comment::where('id', $id)->get();
-        $meme = $comment[0]->mem_id;
-        $comment = Comment::where('id', $id)->delete();
-
-        return $this->all_comments($meme);
+            $comment = Comment::where('id', $id)->get();
+            $meme = $comment[0]->mem_id;
+            $comment = Comment::where('id', $id)->delete();
+        
+            return $this->all_comments($meme);
+        
     }
 }
