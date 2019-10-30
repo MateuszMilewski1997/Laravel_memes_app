@@ -36,6 +36,7 @@ Route::post('/meme/edit/photo/{id}', 'MemesController@edit_photo')->name('edit_m
 Route::get('/meme/comments/{id}', 'CommentsController@all_comments')->name('all_comments');
 Route::get('/meme/comments/delete/{id}', 'CommentsController@delete_comment')->name('delete_comments')->middleware('logged');
 Route::post('/meme/comment/add/{id}', 'CommentsController@add_comment')->name('add_comment')->middleware('logged');
+Route::get('/meme/comment/edit/{id}/{content}', 'CommentsController@edit_comment')->name('edit_comment')->middleware('logged');
 
 Route::get('/users/all', 'AdminController@all_users')->name('all_users')->middleware('admin');
 Route::get('/users/delete/{id}', 'AdminController@delete_user')->name('delete_users')->middleware('admin');

@@ -20,9 +20,9 @@ class CommentsController extends Controller
         return view('comments/comments',['memes' => $meme, 'comments' => $comments]);
     }
     public function add_comment($id, Request $request)
-    {
+    {        
         $request->validate([
-            'content' => 'required|min:50|max:200',
+            'content' => 'required|min:5|max:200',
         ]);
         
         $comment = new Comment;
@@ -41,15 +41,26 @@ class CommentsController extends Controller
     }
     public function delete_comment($id)
     {  
-            $comment = Comment::where('id', $id)->get();
-            $user = $comment[0]->user_id;
-            $meme = $comment[0]->mem_id;
-            
-            if( auth()->user()->role != "admin" || auth()->user()->id != $user) return("Forbidden access!");
+        $comment = Comment::where('id', $id)->get();
+        $user = $comment[0]->user_id;
+        $meme = $comment[0]->mem_id;
 
-            $comment = Comment::where('id', $id)->delete();
+        if( auth()->user()->role != "admin" || auth()->user()->id != $user) return("Forbidden access!");
+
+        $comment = Comment::where('id', $id)->delete();
+
+        return $this->all_comments($meme);
         
-            return $this->all_comments($meme);
+    }
+    public function edit_comment($id, $comment)
+    {
+        $comm = Comment::find($id);
         
+        if( auth()->user()->id != $comm->user_id ) return response("Forbidden access!");
+
+        $comm->content = $comment;
+        $comm->save();
+
+        return response("ok");
     }
 }

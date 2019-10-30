@@ -9,10 +9,6 @@ let number;
         
 };*/
 
-function comment()
-{
-    alert("");
-}
 
 function getNumber(id)
 {
@@ -21,6 +17,19 @@ function getNumber(id)
     let className = ".comment".concat(number);
     let comment = document.querySelector(className).textContent;
     document.querySelector("#editComment").value = comment;
+}
+
+function updateComment()
+{
+    let className = ".comment".concat(number);
+
+    let comment = document.querySelector("#editComment").value;
+    document.querySelector(className).innerHTML = comment;
+
+    //alert("/meme/comment/edit/".concat(number));
+    $.ajax({url: "/meme/comment/edit/".concat(number).concat("/").concat(comment)});
+    
+    document.querySelector(".alert").innerHTML = "<div class='alert alert-success alert-dismissible fade show alert' role='alert'><strong>Comment has been edited!</strong><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 }
 
 function delete_comment()

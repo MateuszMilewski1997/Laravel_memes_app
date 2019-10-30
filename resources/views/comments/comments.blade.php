@@ -31,7 +31,7 @@
                                     <textarea onkeyup="handle(event)" name="content" id="comment" class="form-control"
                                         id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="200"
                                         required></textarea>
-                                    <button onclick="comment()" id="send-comment" class='btn btn-primary w-100 mt-4 mb-3'>Add
+                                    <button id="send-comment" class='btn btn-primary w-100 mt-4 mb-3'>Add
                                         comment</button>
                                     </div>
                                 </form>
@@ -114,7 +114,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-warning">Save changes</button>
+          <button onclick="updateComment()" type="button" data-dismiss="modal" class="btn btn-warning">Save changes</button>
         </div>
       </div>
     </div>
