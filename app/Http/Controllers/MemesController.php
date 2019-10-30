@@ -43,7 +43,9 @@ class MemesController extends Controller
     }
     public function delete_meme($id)
     {   
-       
+            $meme = Meme::find($id);
+            if( auth()->user()->role != "admin" || auth()->user()->id != $meme->user_id) return("Forbidden access!");
+
             $photo = Meme::select('photoPath')->where('id', $id)->get();
             $meme = Meme::where('id', $id)->delete();
             $this->delete_file($photo);
@@ -101,8 +103,6 @@ class MemesController extends Controller
             $array = array(intval($id));
             $request->session()->put('likes', $array);
         }
-
-        //dd($request->session()->get('likes'));
  
         $meme = Meme::find($meme);
         $count = $meme->likes;
@@ -141,11 +141,17 @@ class MemesController extends Controller
     public function edit_meme($id)
     {
         $meme = Meme::find($id);
+        if( auth()->user()->id != $meme->user_id) return("Forbidden access!");
+        
+        $meme = Meme::find($id);
 
         return view('memes/edit_meme',['meme'=>$meme]);
     }
     public function edit_title($id,Request $request)
     {
+        $meme = Meme::find($id);
+        if( auth()->user()->id != $meme->user_id) return("Forbidden access!");
+        
         $request->validate([
             'title' => 'required|max:50|min:5',
         ]);
@@ -158,6 +164,9 @@ class MemesController extends Controller
     }
     public function edit_photo($id, Request $request)
     {
+        $meme = Meme::find($id);
+        if( auth()->user()->id != $meme->user_id) return("Forbidden access!");
+        
         $request->validate([
             'cover_image' => 'required',
         ]);

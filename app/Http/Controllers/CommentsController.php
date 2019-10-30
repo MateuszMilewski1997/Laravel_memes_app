@@ -41,7 +41,11 @@ class CommentsController extends Controller
     public function delete_comment($id)
     {  
             $comment = Comment::where('id', $id)->get();
+            $user = $comment[0]->user_id;
             $meme = $comment[0]->mem_id;
+            
+            if( auth()->user()->role != "admin" || auth()->user()->id != $user) return("Forbidden access!");
+
             $comment = Comment::where('id', $id)->delete();
         
             return $this->all_comments($meme);
