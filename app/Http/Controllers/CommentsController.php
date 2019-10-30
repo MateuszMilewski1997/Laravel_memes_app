@@ -22,7 +22,7 @@ class CommentsController extends Controller
     public function add_comment($id, Request $request)
     {
         $request->validate([
-            'content' => 'required|max:200',
+            'content' => 'required|min:50|max:200',
         ]);
         
         $comment = new Comment;
@@ -36,6 +36,7 @@ class CommentsController extends Controller
         $count = $comments->count();
         if($count == 0)  return view('comments/comments',['memes' => $meme, 'comments' => $comments, 'message' => "Add first comment!"]);
 
+        //redirect(Request::url());
         return view('comments/comments',['memes' => $meme, 'comments' => $comments, 'back' => 1]);
     }
     public function delete_comment($id)

@@ -25,13 +25,15 @@
                                 @if(Auth::check())
                                 <form action="/meme/comment/add/{{ $meme->id }}" method="POST"
                                     enctype="multipart/form-data">
+                                    <div class="form-group">
                                     {{ csrf_field() }}
                                     <h5>Reminded <span id="chars">200</span> chars</h5>
                                     <textarea onkeyup="handle(event)" name="content" id="comment" class="form-control"
                                         id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="200"
                                         required></textarea>
-                                    <button type="submit" id="send-comment" class='btn btn-primary w-100 mt-4 mb-3'>Add
+                                    <button onclick="comment()" id="send-comment" class='btn btn-primary w-100 mt-4 mb-3'>Add
                                         comment</button>
+                                    </div>
                                 </form>
                                 @else
                                 <h3>Login to write comment!</h3>
@@ -48,7 +50,7 @@
                                         <h4><i class="far fa-user-circle"></i><span class="comment-span">
                                                 {{$comment->user->name}}</span></h4>
                                         <hr class="comment-hr" />
-                                        <h5 class="mt-3">{{$comment->content}}</h5>
+                                        <h5 class="mt-3 comment{{$comment->id}}">{{$comment->content}}</h5>
                                         <h5 class="mt-3"><i class="far fa-calendar-alt"></i> {{$comment->created_at}}
                                         </h5>
                                         @if(Auth::check() && Auth::user()->role == "admin")
@@ -58,7 +60,7 @@
                                         @endif
                                         @if(Auth::check() && Auth::user()->id == $comment->user->id)
                                         <button id="{{$comment->id}}" onclick="getNumber(this.id)" type="button"
-                                            class="btn btn-sm btn-warning w-40">Edit comment</button>
+                                            class="btn btn-sm btn-warning w-40" data-toggle="modal" data-target="#modalEditComment">Edit comment</button>
                                         @endif
                                     </div>
                                 </ol>
@@ -96,6 +98,27 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalEditComment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit comment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <textarea onkeyup="handle(event)" name="content" id="editComment" class="form-control"
+            id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="200"
+            required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 @endforeach
 

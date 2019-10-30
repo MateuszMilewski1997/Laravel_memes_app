@@ -6,9 +6,9 @@
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Mem has been created!</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true">&times;</span>
         </button>
-      </div>
+    </div>
     @endif
     <div class="alert"></div>
     <div class="row justify-content-center">
@@ -25,9 +25,20 @@
                 </div>
                 <img src="{{ asset('storage/cover_images/'.$meme->photoPath) }}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    @if(isset(Auth::user()->role) && $meme->waiting_room == 1 && Auth::user()->role == "admin" && isset($waiting_room))
-                    <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button" class="btn btn-warning w-100"
-                        data-toggle="modal" data-target="#exampleModalLong">Change status</button>
+                    @if(isset(Auth::user()->role) && $meme->waiting_room == 1 && Auth::user()->role == "admin" &&
+                    isset($waiting_room))
+                    <div class="row">
+                        <div class="col-6">
+                            <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button"
+                                class="btn btn-warning w-100" data-toggle="modal" data-target="#exampleModalLong">Change
+                                status</button>
+                        </div>
+                        <div class="col-6">
+                            <button id="{{$meme->id}}" onclick="getNumber(this.id)" type="button"
+                                class="btn btn-danger w-100" data-toggle="modal"
+                                data-target="#exampleModal">Delete</button>
+                        </div>
+                    </div>
                     @endif
                 </div>
                 <ul class="list-group list-group-flush">
@@ -58,7 +69,8 @@
                             data-target="#exampleModal">Delete</button>
                     </li>
                     <li class="list-group-item">
-                        <a href="{{route('edit_meme', $meme->id)}}"><button type="button" class="btn btn-lg btn-success w-100">Edit</button></a>
+                        <a href="{{route('edit_meme', $meme->id)}}"><button type="button"
+                                class="btn btn-lg btn-success w-100">Edit</button></a>
                     </li>
                     @endif
                 </ul>

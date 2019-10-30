@@ -1,17 +1,26 @@
 let number;
 
-window.onload = function() 
+/*window.onload = function() 
 {
         if(document.querySelector(".back"))
         {
             window.history.back();
         }
         
-};
+};*/
+
+function comment()
+{
+    alert("");
+}
 
 function getNumber(id)
 {
     number = id;
+
+    let className = ".comment".concat(number);
+    let comment = document.querySelector(className).textContent;
+    document.querySelector("#editComment").value = comment;
 }
 
 function delete_comment()

@@ -44,7 +44,8 @@ class MemesController extends Controller
     public function delete_meme($id)
     {   
             $meme = Meme::find($id);
-            if( auth()->user()->role != "admin" || auth()->user()->id != $meme->user_id) return("Forbidden access!");
+            if( auth()->user()->role != "admin" && auth()->user()->id != $meme->user_id) return("Forbidden access!");
+            //if( auth()->user()->role != "admin" || auth()->user()->id != $meme->user_id) return("Forbidden access!");
 
             $photo = Meme::select('photoPath')->where('id', $id)->get();
             $meme = Meme::where('id', $id)->delete();
