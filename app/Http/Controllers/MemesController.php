@@ -43,14 +43,14 @@ class MemesController extends Controller
     }
     public function delete_meme($id)
     {   
-            $meme = Meme::find($id);
-            if( auth()->user()->role != "admin" && auth()->user()->id != $meme->user_id) return("Forbidden access!");
+        $meme = Meme::find($id);
+        if( auth()->user()->role != "admin" && auth()->user()->id != $meme->user_id) return("Forbidden access!");
 
-            $photo = Meme::select('photoPath')->where('id', $id)->get();
-            $meme = Meme::where('id', $id)->delete();
-            $this->delete_file($photo);
+        $photo = Meme::select('photoPath')->where('id', $id)->get();
+        $meme = Meme::where('id', $id)->delete();
+        $this->delete_file($photo);
 
-            return $this->my_memes();
+        return $this->my_memes();
       
 
     }
@@ -87,31 +87,13 @@ class MemesController extends Controller
         return $this->my_memes($request);
     }
     public function like($meme, Request $request)
-    {        
-        $id = $meme;
-        
-        if($request->session()->has('likes'))
-        {
-            $array = $request->session()->get('likes');
-            //dd($array);
-            $request->session()->forget('message');
-            array_push($array, intval($id));
-            $request->session()->put('likes', $array);
-        }
-        else
-        {
-            $array = array(intval($id));
-            $request->session()->put('likes', $array);
-        }
- 
+    {         
         $meme = Meme::find($meme);
         $count = $meme->likes;
         $count++;
         $meme->likes = $count;
         $meme->save();
         
-       
-
         return ("ok");
     }
     public function dislike($meme)

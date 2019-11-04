@@ -47,6 +47,10 @@
 .comment{
     width: 18rem;
 }
+.commentsList
+{
+    list-style-type:none;
+}
 .comment-title{
     background: #888; 
     color: white; 

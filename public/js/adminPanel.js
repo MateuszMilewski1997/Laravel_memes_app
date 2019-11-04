@@ -7,11 +7,9 @@ function getNumber(id)
 
 function getRole(id)
 {
-    number = id;
-    let iduser = id.toString();
-    element = document.getElementById(iduser);
-    element.getAttribute("data-role");
-    document.getElementById("select-role").value =  element.getAttribute("data-role");
+  element = document.getElementById(id);
+  let role = element.getAttribute("data-role");
+  element = document.getElementById(role).selected = "true";  
 }
 
 function deleteUser()
