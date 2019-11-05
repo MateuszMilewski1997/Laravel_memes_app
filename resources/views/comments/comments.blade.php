@@ -22,16 +22,12 @@
                </li>
                <li class="list-group-item">
                   @if(Auth::check())                  
-                  {{--<form onsubmit="sendComment()" action="/meme/comment/add/{{ $meme->id }}" method="POST"
-                     enctype="multipart/form-data">--}}
-                     
                      <div class="form-group">
-                        {{--<div class="csrf">{{ csrf_field() }}</div>--}}
                         <h5>Reminded <span id="chars">200</span> chars</h5>
                         <textarea onkeyup="handle(event)" name="content" id="comment" class="form-control" id="exampleFormControlTextarea1" rows="3" minlength="10" maxlength="200" required></textarea>
+                        <div class="commentError"></div>
                      <button onclick="sendComment()" data-username="{{ Auth::user()->name }}" data-id="{{ $meme->id }}" id="send-comment" class='btn btn-primary w-100 mt-4 mb-3'>Add comment</button>
                      </div>
-                  {{--</form>--}}   
                   @else
                   <h3>Login to write comment!</h3>
                   @endif
