@@ -6,11 +6,13 @@ use DB;
 Use App\Models\Meme;
 Use App\Models\Comment;
 Use App\Models\User;
+Use App\Http\Controllers\FilesController;
+use App\Http\Controllers\Controller;
+Use App\Http\Controllers\ValidationController;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Validator,Redirect,Response,File;
-use App\Http\Controllers\Controller;
 
 class MemesController extends Controller
 {
@@ -29,7 +31,7 @@ class MemesController extends Controller
     public function my_memes(Request $request)
     {
         $user_id = auth()->user()->id;
-        $my_memes = Meme::where('user_id', $user_id)->paginate(10);
+        $my_memes = Meme::where('user_id', $user_id)->orderBy('created_at','desc')->paginate(10);
         $auth = "auth";
 
         if ($request->session()->has('message')) 
@@ -46,28 +48,18 @@ class MemesController extends Controller
 
         $photo = Meme::select('photoPath')->where('id', $id)->get();
         $meme = Meme::where('id', $id)->delete();
-        $this->delete_file($photo);
-
+        $filescontroller->delete_file($photo);
+       
         return $this->my_memes();     
     }
     public function create_form()
     {
         return view('memes/add_meme');
     }
-    public function create(Request $request)
+    public function create(Request $request, FilesController $filescontroller, ValidationController $validation)
     {
-        $request->validate([
-            'title' => 'required|max:50|min:5',
-            'cover_image' => 'required',
-        ]);
-        
-        //$path = $request->file('cover_image')->store('photos'); php artisan storage:link
-        $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        $extension = $request->file('cover_image')->getClientOriginalExtension();
-        $fileNameToStore= date('Y-m-d')."/".$filename.'_'.time().'.'.$extension;
-        Storage::makeDirectory("public/cover_images/".date('Y-m-d'));
-        $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        $validation->create_meme_validate($request);
+        $fileNameToStore = $filescontroller->upload_file($request);
 
         $post = new Meme;
         $post->title = $request->title;
@@ -109,12 +101,6 @@ class MemesController extends Controller
         
         return $this->waiting_room();
     }
-    public function delete_file($photo)
-    {
-        $path = "storage/cover_images/".$photo[0]->photoPath;
-        File::delete($path);
-
-    }
     public function edit_meme($id)
     {
         $meme = Meme::find($id);
@@ -124,14 +110,12 @@ class MemesController extends Controller
 
         return view('memes/edit_meme',['meme'=>$meme]);
     }
-    public function edit_title($id,Request $request)
+    public function edit_title($id,Request $request, ValidationController $validation)
     {
         $meme = Meme::find($id);
         if( auth()->user()->id != $meme->user_id) return("Forbidden access!");
         
-        $request->validate([
-            'title' => 'required|max:50|min:5',
-        ]);
+        $validation->meme_title_validate($request);
         
         $meme = Meme::find($id);
         $meme->title = $request->title;
@@ -139,27 +123,19 @@ class MemesController extends Controller
 
         return view('memes/edit_meme',['meme'=>$meme, 'message' => "Title has been changed!"]);
     }
-    public function edit_photo($id, Request $request)
+    public function edit_photo($id, Request $request, FilesController $filescontroller, ValidationController $validation)
     {
         $meme = Meme::find($id);
         if( auth()->user()->id != $meme->user_id) return("Forbidden access!");
         
-        $request->validate([
-            'cover_image' => 'required',
-        ]);
+        $validation->meme_photo_validate($request);
         
         $meme = Meme::find($id);
-        $oldPhoto = $meme->photoPath;
-         
+        $oldPhoto = $meme->photoPath;         
         $photo = Meme::select('photoPath')->where('id', $id)->get();
-        $this->delete_file($photo);
-
-        $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-        $extension = $request->file('cover_image')->getClientOriginalExtension();
-        $fileNameToStore= date('Y-m-d')."/".$filename.'_'.time().'.'.$extension;
-        Storage::makeDirectory("public/cover_images/".date('Y-m-d'));
-        $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        
+        $filescontroller->delete_file($photo);
+        $fileNameToStore = $filescontroller->upload_file($request);
 
         $meme->photoPath = $fileNameToStore;
         $meme->save();

@@ -27,8 +27,8 @@ function delete_comment()
 
 }
 
-function handle(e){
-                
+function handle(e)
+{                
     let content = document.getElementById("comment").value;
     console.log(200 - content.length);
     document.getElementById('chars').innerText = 200 - content.length;

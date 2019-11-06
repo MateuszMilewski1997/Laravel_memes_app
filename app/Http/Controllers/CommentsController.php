@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 Use App\Models\Meme;
 Use App\Models\Comment;
 Use App\Models\User;
+Use App\Http\Controllers\ValidationController;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
@@ -25,11 +26,9 @@ class CommentsController extends Controller
 
         return view('comments/comments',['memes' => $meme, 'comments' => $comments]);
     }
-    public function add_comment($id, Request $request)
+    public function add_comment($id, Request $request, ValidationController $validation)
     {        
-        $request->validate([
-            'content' => 'required|min:5|max:200',
-        ]);
+        $validation->comment_validate($request);
         
         $comment = new Comment;
         $comment->mem_id = $id;
@@ -56,8 +55,7 @@ class CommentsController extends Controller
 
         $comment = Comment::where('id', $id)->delete();
 
-        return $this->all_comments($meme);
-        
+        return $this->all_comments($meme);  
     }
     public function edit_comment($id, $comment)
     {

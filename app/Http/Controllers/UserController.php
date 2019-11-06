@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 Use App\Models\Meme;
 Use App\Models\Comment;
 Use App\Models\User;
+Use App\Http\Controllers\ValidationController;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Validator,Redirect,Response,File;
@@ -22,16 +23,9 @@ class UserController extends Controller
         
         return view('account/account');
     }
-    public function change_email(Request $request)
+    public function change_email(Request $request, ValidationController $validation)
     {
-        $request->validate([
-            'oldEmail' => 'required|in:'.auth()->user()->email,
-            'newEmail' => 'required|unique:users,email',
-        ],
-        [
-            'oldEmail.in' => 'Email is not valid',
-        ]
-        );
+        $validation->email_validate($request);
         
         $id = auth()->user()->id;
         $user = User::find($id);
@@ -42,20 +36,9 @@ class UserController extends Controller
 
         return $this->my_account($request);
     }
-    public function change_password(Request $request)
-    {
-       
-        
-        $request->validate([
-            'oldPassword' =>  ['required', function ($attribute, $value, $fail) {
-                if (!\Hash::check($value, auth()->user()->password)) {
-                    return $fail(__('The current password is incorrect.'));
-                }
-            }],
-            'newPassword' => 'required|min:7',
-            'repeatPassword' => 'required|same:newPassword',
-        ]
-        );
+    public function change_password(Request $request, ValidationController $validation)
+    { 
+        $validation->old_password_validate($request);
 
         $id = auth()->user()->id;
         $user = User::find($id);
@@ -66,6 +49,4 @@ class UserController extends Controller
 
         return $this->my_account($request);
     }
-    
-
 }

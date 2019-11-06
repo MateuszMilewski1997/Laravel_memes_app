@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use Illuminate\Http\Request;
 use Mail;
-use App\Mail\SendMail;
 
 class SendEmailController extends Controller
 {
