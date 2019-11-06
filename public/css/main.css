@@ -8,11 +8,11 @@
     padding: 20px; border: 
     1px solid rgba(0, 0, 0, 0.125);
 }
-.form-header{
+.formHeader{
     background-color:#fff; 
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
-.form-img{
+.formImg{
     display: none; 
     width: 150px; height: auto; 
     margin-top: 30px; 
@@ -22,25 +22,25 @@
 .meme{
     width: 18rem;
 }
-.meme-title{
+.memeTitle{
     background: #888; color: white; 
     margin-bottom: 15px; 
     border-bottom-right-radius: 7px; 
     padding-top: 5px;
 }
-.meme-user{
+.memeUser{
     padding-top: 5px;
 }
-.meme-font-like{
+.memeFontLike{
     color:green;
 }
-.meme-font-dislike{
+.memeFontDislike{
     color:red;
 }
-.modal-status{
+.modalStatus{
     text-align:center;
 }
-.modal-delete{
+.modalDelete{
     text-align:center;
 }
 /*comments*/
@@ -51,52 +51,52 @@
 {
     list-style-type:none;
 }
-.comment-title{
+.commentTitle{
     background: #888; 
     color: white; 
     margin-bottom: 15px; 
     border-bottom-right-radius: 7px; 
     padding-top: 5px;
 }
-.comment-user{
+.commentUser{
     padding-top: 5px;
 }
-.comment-span{
+.commentSpan{
     font-size: 17px;
 }
-.comment-hr{
+.commentHr{
     width: 100%; 
     color: black; 
     height: 1px; 
     background-color:gray;
 }
-.comment-modal{
+.commentModal{
     text-align: center;
 }
-.comment-list{
+.commentList{
     background-color: #f8fafc; 
     padding: 15px; 
     border-radius: 5px; 
     border: 1px solid lightgray;
 }
 /*account*/
-.account-form{
+.accountForm{
     background: white; 
     border-radius: 5px; 
     border: 1px solid gray; 
     padding: 15px;
 }
-.accounf-form-header{
+.accountFormHeader{
     background-color:#fff; 
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
-.form-password{
+.formPassword{
     background: white; 
     border-radius: 5px; 
     border: 1px solid gray; 
     padding: 15px;
 }
-.form-password-header{
+.formPasswordHeader{
     background-color:#fff; 
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }

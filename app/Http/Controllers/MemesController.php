@@ -32,13 +32,11 @@ class MemesController extends Controller
         $my_memes = Meme::where('user_id', $user_id)->paginate(10);
         $auth = "auth";
 
-
         if ($request->session()->has('message')) 
         {          
             $request->session()->forget('message');
             return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth, 'message' => 1]);
         }
-
         return view('memes/all_memes',['memes'=>$my_memes, 'auth'=> $auth]);
     }
     public function delete_meme($id)
@@ -50,9 +48,7 @@ class MemesController extends Controller
         $meme = Meme::where('id', $id)->delete();
         $this->delete_file($photo);
 
-        return $this->my_memes();
-      
-
+        return $this->my_memes();     
     }
     public function create_form()
     {
@@ -81,12 +77,11 @@ class MemesController extends Controller
         $post->dislikes = 0;
         $post->waiting_room = 1;  
         $post->save();
-
         $request->session()->put('message', 'Mem has been created!');
 
         return $this->my_memes($request);
     }
-    public function like($meme, Request $request)
+    public function like($meme)
     {         
         $meme = Meme::find($meme);
         $count = $meme->likes;

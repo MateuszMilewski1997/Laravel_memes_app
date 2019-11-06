@@ -25,7 +25,7 @@ function like(meme_id)
 {
     
     document.querySelector(".like".concat(meme_id)).disabled = true;
-    document.querySelector(".notlike".concat(meme_id)).disabled = true;
+    document.querySelector(".notLike".concat(meme_id)).disabled = true;
         
     let number_like = meme_id.toString();
     let class_like = "meme".concat(number_like);
@@ -45,7 +45,7 @@ function like(meme_id)
 function dislike(meme_id)
 {
     document.querySelector(".like".concat(meme_id)).disabled = true;
-    document.querySelector(".notlike".concat(meme_id)).disabled = true;
+    document.querySelector(".notLike".concat(meme_id)).disabled = true;
     
     let number_like = meme_id.toString();
     let class_like = "dislike".concat(number_like);

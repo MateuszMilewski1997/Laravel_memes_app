@@ -16,10 +16,10 @@
          @foreach ($memes as $meme)
          <div id="mem{{ $meme->id }}" class="card w-100 mt-5 meme">
             <div class="row">
-               <div class="col-5 ml-3 meme-title">
+               <div class="col-5 ml-3 memeTitle">
                   <h4>{{ $meme->title }}</h4>
                </div>
-               <div class="col-5 meme-user">
+               <div class="col-5 memeUser">
                   <h5> <i class="far fa-user"></i> : {{$meme->user->name}}</h5>
                </div>
             </div>
@@ -40,15 +40,15 @@
                <li class="list-group-item">
                   <div class="row">
                      <div class="col-6">
-                        <h3> <i class="far fa-thumbs-up meme-font-like"></i><span class="meme{{ $meme->id }}">{{ $meme->likes }}</span></h3>
+                        <h3> <i class="far fa-thumbs-up memeFontLike"></i><span class="meme{{ $meme->id }}">{{ $meme->likes }}</span></h3>
                         @if(!isset($auth))
                         <button onclick="like(this.id)" id="{{ $meme->id }}" type="button" class="btn btn-outline-success w-100 like{{ $meme->id }}">Like</button>
                         @endif
                      </div>
                      <div class="col-6">
-                        <h3> <i class="far fa-thumbs-down meme-font-dislike"></i> <span class="dislike{{ $meme->id }}">{{ $meme->dislikes }}</span></h3>
+                        <h3> <i class="far fa-thumbs-down memeFontDislike"></i> <span class="dislike{{ $meme->id }}">{{ $meme->dislikes }}</span></h3>
                         @if(!isset($auth))
-                        <button onclick="dislike(id)" id="{{ $meme->id }}" type="button" class="btn btn-outline-danger w-100 notlike{{ $meme->id }}">Dislike</button>
+                        <button onclick="dislike(id)" id="{{ $meme->id }}" type="button" class="btn btn-outline-danger w-100 notLike{{ $meme->id }}">Dislike</button>
                         @endif
                      </div>
                   </div>
@@ -77,7 +77,7 @@
                      <span aria-hidden="true">&times;</span>
                      </button>
                   </div>
-                  <div class="modal-body modal-delete">
+                  <div class="modal-body modalDelete">
                      <h2>
                      <i class="fas fa-question"></i></h1>
                      <h3>Are you sure?</h3>
@@ -105,7 +105,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
          </div>
-         <div class="modal-body modal-status">
+         <div class="modal-body modalStatus">
             <h2><i class="far fa-question-circle"></i></h2>
             <h3>Are you sure?</h3>
          </div>

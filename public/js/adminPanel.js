@@ -18,6 +18,6 @@ function deleteUser()
 }
 function editRole()
 {
-  var role = document.querySelector("#exampleFormControlSelect1").value;
+  var role = document.querySelector("#roleSelect").value;
   window.location.href = '/users/role/'.concat(number).concat("/").concat(role);    
 }

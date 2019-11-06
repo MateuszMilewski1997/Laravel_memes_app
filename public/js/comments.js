@@ -36,18 +36,16 @@ function handle(e){
     if(e.keyCode === 13)
     {
         e.preventDefault(); 
-        document.getElementById("send-comment").click();
+        document.getElementById("sendComment").click();
     }
 }
 
 function sendComment()
-{
-    //walidacja
-    
-    var id = document.querySelector("#send-comment").dataset.id;
+{   
+    var id = document.querySelector("#sendComment").dataset.id;
     var content = document.querySelector("#comment").value;
     var token = $('meta[name="csrf-token"]').attr('content');
-    var userName = document.querySelector("#send-comment").dataset.username;
+    var userName = document.querySelector("#sendComment").dataset.username;
     var length = content.length;
 
     if(length < 8)
@@ -76,7 +74,7 @@ function sendComment()
     });
 
     var formattedDate = new Date().toISOString().slice(0,10);
-    document.querySelector(".commentsList").insertAdjacentHTML('afterbegin', "<li><div id='comment{{ $comment->id }}' class='w-100 mb-2 mt-3 comment-list'><h4><i class='far fa-user-circle'></i><span class='comment-span'> ".concat(userName).concat("</span></h4><hr class='comment-hr'/><h5 class='mt-3 comment{{$comment->id}}'>".concat(content).concat("</h5><h5 class='mt-3'><i class='far fa-calendar-alt'></i> ").concat(formattedDate).concat("</div></li>")));
+    document.querySelector(".commentsList").insertAdjacentHTML('afterbegin', "<li><div id='comment{{ $comment->id }}' class='w-100 mb-2 mt-3 commentList'><h4><i class='far fa-user-circle'></i><span class='comment-span'> ".concat(userName).concat("</span></h4><hr class='comment-hr'/><h5 class='mt-3 comment{{$comment->id}}'>".concat(content).concat("</h5><h5 class='mt-3'><i class='far fa-calendar-alt'></i> ").concat(formattedDate).concat("</div></li>")));
     document.querySelector("#comment").value="";
     document.querySelector("#chars").innerHTML="200";
     document.querySelector(".commentError").innerHTML = "";

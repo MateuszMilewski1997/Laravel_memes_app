@@ -76,7 +76,7 @@
                   </div>
                   <div class="modal-body align">
                      <h3 class="mb-4">Select role {{$user->role}}</h3>
-                     <select class="form-control mb-2 rolesList" id="exampleFormControlSelect1">
+                     <select class="form-control mb-2 rolesList" id="roleSelect">
                         <option id="user">user</option>
                         <option id="moderator">moderator</option>
                         <option id="admin">admin</option>

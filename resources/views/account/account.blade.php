@@ -18,8 +18,8 @@
    @endif
    <div class="row mt-5">
       <div class="col-sm-12 col-md-6 mb-4">
-         <form class="account-form" method="post" action="/account/email" enctype="multipart/form-data">
-            <div class="mb-4 account-form-header">
+         <form class="accountForm" method="post" action="/account/email" enctype="multipart/form-data">
+            <div class="mb-4 accountFormHeader">
                <h3>Reset email</h3>
             </div>
             <div class="form-group">
@@ -35,8 +35,8 @@
          </form>
       </div>
       <div class="col-sm-12 col-md-6">
-         <form class="form-password" method="post" action="/account/password" enctype="multipart/form-data">
-            <div class="mb-4 form-password-header">
+         <form class="formPassword" method="post" action="/account/password" enctype="multipart/form-data">
+            <div class="mb-4 formPasswordHeader">
                <h3>Reset password</h3>
             </div>
             <div class="form-group">
