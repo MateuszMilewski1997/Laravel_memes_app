@@ -16,7 +16,7 @@ class UserTest extends TestCase
      */
     use RefreshDatabase;
 
-     public function testLogin()
+    public function testLogin()
     {
         $response = $this->get('/login');
 
