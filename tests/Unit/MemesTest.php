@@ -70,4 +70,20 @@ class MemesTest extends TestCase
 
         $response->assertSessionHasErrors('title');
     }
+    public function testPagination()
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => 'password'
+        ]);
+
+        $meme = factory(Meme::class, 10)->create();
+
+        $response = $this->get('/waiting_room?page=2');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('memes.all_memes');
+    }
 }

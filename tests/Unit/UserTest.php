@@ -86,12 +86,7 @@ class UserTest extends TestCase
     }
     public function testUserAccountLogged()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->post(route('login'), [
-            'email' => $user->email,
-            'password' => 'password'
-        ]);
+        $this->testUserAuthentification();
 
         $response = $this->get('/account');
 
@@ -100,12 +95,7 @@ class UserTest extends TestCase
     }
     public function testMyMemes()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->post(route('login'), [
-            'email' => $user->email,
-            'password' => 'password'
-        ]);
+        $this->testUserAuthentification();
 
         $response = $this->get('/memes/my');
         $response->assertStatus(200);
