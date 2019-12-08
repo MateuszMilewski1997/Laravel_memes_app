@@ -79,6 +79,7 @@ function sendComment()
     document.querySelector("#chars").innerHTML="200";
     document.querySelector(".commentError").innerHTML = "";
     document.querySelector(".alert").innerHTML = "<div class='alert alert-success alert-dismissible fade show alert' role='alert'><strong>Comment added!</strong><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+    document.location("reload");
 }
 
 
